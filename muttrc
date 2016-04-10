@@ -17,6 +17,7 @@ set     date_format         =   "%a, %d. %b %H:%M"
 
 
 set     xterm_set_titles    =   yes
+set     meta_key            =   yes
 
 
 # use only safe SSL connections:
@@ -89,7 +90,7 @@ source ~/.mutt/posteo.conf
 
 macro index <f1> "<enter-command>less /usr/share/doc/mutt/manual.txt<enter>" "test"
 
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail.conf<enter><change-folder>!<enter>' "switch to gmail"
+macro index <f2> '<sync-mailbox><refresh><enter-command>source ~/.mutt/gmail.conf<enter><change-folder>!<enter>' "switch to gmail"
 
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/posteo.conf<enter><change-folder>!<enter>' "switch to posteo"
 macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/university.conf<enter><change-folder>!<enter>' "switch to university"
