@@ -8,6 +8,7 @@
 
 #-------------- ALIAS BEGIN----------------
 alias tor='~/tor-browser_en-US/start-tor-browser --detach'
+alias chromium='setsid /usr/bin/chromium >& /dev/null &'
 
 # make ls use colors automatically
 alias ls='ls --color=auto'
