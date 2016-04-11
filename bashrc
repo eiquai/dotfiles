@@ -31,3 +31,20 @@ COLORTERM='rxvt-unicode-256color'
 # info from: http://blog.joncairns.com/2013/12/understanding-ssh-agent-and-ssh-add/
 #source ~/dotfiles/bin/ssh-find-agent
 #set_ssh_agent_socket
+
+
+# Start gpg-agent via systemd - but otherwise we could start it here:
+#if ! pgrep -x -u "$USER}" gpg-agent >/dev/null 2>&1; then
+#    gpg-connect-agent /bye /dev/null 2>$1
+#fi
+
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+    export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+fi
+
+# Set GPG TTY
+export GPG_TTY=$(tty)
+
+# Refresh gpg-agent tty in case user switches to X
+gpg-connect-agent updatestartuptty /bye >/dev/null
