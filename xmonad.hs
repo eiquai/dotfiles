@@ -48,9 +48,11 @@ myCurrentWSRight    =   "]"
 
 myManageHook = floatHook <+> fullscreenManageHook
 floatHook = composeAll
-    [ className =? "Gimp"   --> doFloat
+    [ className =? "gimp"   --> doFloat
     , resource =? "synapse" --> doFloat
-    , resource =? "gnome-calendar" --> doFloat]
+    , resource =? "gnome-calendar" --> doFloat
+    , resource =? "gnome-control-center" --> doFloat
+    , resource =? "gnome-weather" --> doFloat]
 
 myStartupHook ::X ()
 myStartupHook = do
