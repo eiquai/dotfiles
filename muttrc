@@ -88,12 +88,9 @@ source ~/.mutt/posteo.conf
 #macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail.conf<enter><change-folder>!<enter>'
 #
 
-macro index <[11> '<enter-command>less /usr/share/doc/mutt/manual.txt<enter>' "test"
-
-macro index <[11~> '<sync-mailbox><refresh><enter-command>source ~/.mutt/gmail.conf<enter><change-folder>!<enter>' "switch to gmail"
-
+macro index <f2~> '<sync-mailbox><refresh><enter-command>source ~/.mutt/gmail.conf<enter><change-folder>!<enter>' "switch to gmail"
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/posteo.conf<enter><change-folder>!<enter>' "switch to posteo"
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/university.conf<enter><change-folder>!<enter>' "switch to university"
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/university.conf<enter><change-folder>!<enter>' "switch to university"
 
 macro pager \Cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 
