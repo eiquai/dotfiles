@@ -1,0 +1,8 @@
+# configuration for urlview
+# set programs to be used to open links from within mutt
+# this file must be linked to ~/.urlview
+
+
+# define browser to open links:
+
+COMMAND chromium %s
