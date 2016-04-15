@@ -9,6 +9,7 @@
 #-------------- ALIAS BEGIN----------------
 alias tor='~/tor-browser_en-US/start-tor-browser --detach'
 alias chromium='setsid /usr/bin/chromium >& /dev/null &'
+alias ncmpc='ncmpc -f ~/.ncmpc_config'
 
 # make ls use colors automatically
 alias ls='ls --color=auto'
@@ -22,9 +23,9 @@ PATH=$PATH:~/dotfiles/bin
 
 export PATH
 
-TERM='rxvt-unicode-256color'
+#TERM='rxvt-unicode-256color'
 #try to  set term for tmux:
-#TERM='screen-256color'
+TERM='screen-256color'
 COLORTERM='rxvt-unicode-256color'
 
 
