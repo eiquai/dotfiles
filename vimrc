@@ -9,7 +9,7 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
-" [2016-04-15] colors]
+" [2016-04-15] set vim to 256 colors
 set t_Co=256
 
 " [2016-01-30] counts / number format

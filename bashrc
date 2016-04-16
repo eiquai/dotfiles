@@ -25,7 +25,7 @@ export PATH
 
 #TERM='rxvt-unicode-256color'
 #try to  set term for tmux:
-TERM='screen-256color'
+#TERM='screen-256color'
 COLORTERM='rxvt-unicode-256color'
 
 
