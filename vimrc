@@ -91,7 +91,10 @@ set softtabstop=0
 
 " [2015-02-08] wrap lines
 " wrap lines
-set wrap
+" [2016-04-16] wrapping lines hurts readability in orgmode. Probably also in
+" other contexts.
+"set wrap
+
 
 " [2015-02-08] cursor position
 " horizontal line to indicate cursor position

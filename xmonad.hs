@@ -52,6 +52,7 @@ floatHook = composeAll
     , resource =? "synapse" --> doFloat
     , resource =? "arandr" --> doFloat
     , resource =? "keepassx2" --> doFloat
+    , resource =? "skype" --> doFloat
     , resource =? "gnome-calendar" --> doFloat
     , resource =? "gnome-control-center" --> doFloat
     , resource =? "gnome-weather" --> doFloat]
