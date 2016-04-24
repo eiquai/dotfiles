@@ -9,12 +9,16 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
+" [2016-04-24] open VOom automatically for files that are handled by
+" vimoutliner
+au FileType vo_base :Voom vimoutliner
+
 " [2016-04-15] set vim to 256 colors
 set t_Co=256
 
 " [2016-01-30] counts / number format
 " set numberformat to decimal. Don't tread numbers with leading zero as octal.
-set nrformats=
+set nrformats=alpha
 
 " [2015-02-08] filetype treat *.md files as markdown-files 
 " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
