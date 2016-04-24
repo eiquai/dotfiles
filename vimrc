@@ -196,6 +196,12 @@ Plugin 'gmarik/Vundle.vim'
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
 
+" [2016-04-24] add VOoM (vim two-pane outliner)
+Plugin 'VOom'
+
+" [2016-04-24] add vim-outliner
+Plugin 'vimoutliner/vimoutliner'
+
 " [2016-03-13] add speeddating-plugin for vim as it seems to be a dependency
 " for vim-orgmode
 Plugin 'tpope/vim-speeddating'
