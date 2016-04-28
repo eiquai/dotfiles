@@ -64,6 +64,9 @@ source  "gpg2 -dq $HOME/.my-pwds.gpg |"
 # set charset to UTF8 for all outgoing mails
 set send_charset    =   "utf-8"
 
+# set charset to UTF8 because that what we use in the terminal
+#set charset         =   "utf-8"
+
 # we use one config-file per account located in ~/.mutt/[accountname].conf
 # and when we switch accounts, we want to source the right config, to make sure that mutt keeps mail accounts separated
 #folder-hook 'timon.schroeder@posteo.de'      'source ~/.mutt/posteo.conf'
