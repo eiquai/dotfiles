@@ -200,6 +200,9 @@ Plugin 'gmarik/Vundle.vim'
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
 
+" [2016-04-24] markdown folding
+Plugin 'nelstrom/vim-markdown-folding'
+
 " [2016-04-24] add VOoM (vim two-pane outliner)
 Plugin 'VOom'
 
