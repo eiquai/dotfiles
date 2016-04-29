@@ -33,6 +33,25 @@ set     ssl_use_tlsv1_2     =   yes
 set     ssl_verify_dates    =   yes
 set     ssl_verify_host     =   yes
 
+# SETTINGS MUTT-SIDEBAR
+# Careful: only patched mutt will work with these changes:
+set sidebar_width           =   40
+set sidebar_visible         =   no
+
+set sidebar_delim           =   '|'
+set sidebar_sort            =   yes
+bind    index   CP  sidebar-prev
+bind    index   CN  sidebar-next
+bind    index   CO  sidebar-open
+bind    pager   CP  sidebar-prev
+bind    pager   CN  sidebar-next
+bind    pager   CO  sidebar-open
+
+macro   index   b   '<enter-command>toggle sidebar_visible<enter>'
+macro   pager   b   '<enter-command>toggle sidebar_visible<enter>'
+
+bind    index   B   bounce-message
+
 # TODO
 # regarding security, these settings need to be reviewed once everything is set up
 # because it means we keep a local unencrypted copy of all e-mails.
