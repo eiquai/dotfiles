@@ -9,8 +9,11 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
+" [2016-05-08] map key to execute latex wordcount
+nnoremap <F11> :!detex % \| wc -w<CR>
 " [2016-04-24] open VOom automatically for files that are handled by
 " vimoutliner
+" currently not working
 au FileType vo_base :Voom vimoutliner
 
 " [2016-04-15] set vim to 256 colors
@@ -81,7 +84,8 @@ set visualbell
 
 " [2015-02-08] encoding
 " set utf8 as standard encoding
-set encoding=utf8
+set encoding=utf-8
+set fileencoding=utf-8
 
 " [2015-02-08] tabs
 " use smarttab
@@ -97,7 +101,15 @@ set softtabstop=0
 " wrap lines
 " [2016-04-16] wrapping lines hurts readability in orgmode. Probably also in
 " other contexts.
-"set wrap
+" Currently experimenting with wrapping/line breaks
+" see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
+" information
+set wrap
+set linebreak
+set nolist
+set textwidth=0
+set wrapmargin=0
+set formatoptions-=t
 
 
 " [2015-02-08] cursor position
@@ -123,6 +135,7 @@ set cursorline
 " DE-layout
 "let mapleader = "\"
 let maplocalleader = ","
+let mapleader = ","
 
 
 " settings for grep. Grep is used for autocomplete.
