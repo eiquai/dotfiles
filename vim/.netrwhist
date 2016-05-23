@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc'
+let g:netrw_dirhist_2='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc/app'
+let g:netrw_dirhist_3='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc/app/models'
+let g:netrw_dirhist_4='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc/app'
+let g:netrw_dirhist_5='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc/app/controllers'
+let g:netrw_dirhist_6='/home/timon/Dropbox/Projekte/2016/03_vim/code/files/mvc'
+let g:netrw_dirhist_7='/home/timon/dotfiles/vim/bundle/vimtex/test/example/minimal'
