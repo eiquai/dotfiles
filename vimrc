@@ -11,10 +11,14 @@
 
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
+
 " [2016-04-24] open VOom automatically for files that are handled by
 " vimoutliner
 " currently not working
-au FileType vo_base :Voom vimoutliner
+"au FileType vo_base :Voom vimoutliner
+
+" 2016-05-24] set updatetime for vim-gitgutter
+set updatetime=250
 
 " [2016-04-15] set vim to 256 colors
 set t_Co=256
@@ -25,6 +29,9 @@ set nrformats=alpha
 
 " [2015-02-08] filetype treat *.md files as markdown-files 
 " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" [2016-05-24] set key for taggbar
+set <F8>    :TagbarToggle<CR>
 
 " [2015-02-08] command-line completion
 " Better command-line completion
@@ -61,6 +68,8 @@ set number
 syntax enable
 colorscheme monokai
 "colorscheme molokai
+"for molokai
+"let g:molokai_original = 1
 
 " [2015-10-13] vim-airline color scheme
 " Set dark color scheme for vim-airline
@@ -213,6 +222,36 @@ Plugin 'gmarik/Vundle.vim'
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
 
+" [2016-05-24] plugin to display tags in a window (ordered by scope)
+Plugin 'majutsushi/tagbar'
+
+" [2016-05-24] dark color scheme for vim
+" See http://vimawesome.com/plugin/hybrid-vim for instructions to set the
+" right color palette in ~.Xressources
+Plugin 'w0ng/vim-hybrid'
+
+" [2016-05-24] plugin for seamless navigation between tmux, panes and splits
+Plugin 'christoomey/vim-tmux-navigator'
+
+" [2016-05-24] better hightlighting for JSON
+Plugin 'elzr/vim-json'
+
+" [2016-05-24] plugin to work with multiple cursors
+" See http://vimawesome.com/plugin/vim-multiple-cursors for instructions
+Plugin 'terryma/vim-multiple-cursors'
+
+" [2016-05-24] fuzzy search for files, buffers, tags and MRUs (most recent
+" used)
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" [2016-05-24] plugin for completion in vim
+" Needs to be configured and tested
+" https://github.com/Shougo/neocomplete.vim
+Plugin 'Shougo/neocomplete'
+
+" [2016-05-24] plugin to visualize diffs in the gutter
+Plugin 'airblade/vim-gitgutter'
+
 " [2016-04-24] markdown folding
 Plugin 'nelstrom/vim-markdown-folding'
 
@@ -249,9 +288,6 @@ Plugin 'edkolev/tmuxline.vim'
 " [2015-04-19] add vim-ansible-yaml to suppot ansible yaml syntax
 Plugin 'chase/vim-ansible-yaml'
 
-" [2015-04-18] switch to markdown-plugin from @tim pope@
-Plugin 'tpope/vim-markdown'
-
 " [2015-04-18] nerdtree fileexplorer
 Plugin 'scrooloose/nerdtree'
 
@@ -260,7 +296,12 @@ Plugin 'sickill/vim-monokai'
 
 " [2015-02-08] tabular + vim-markdown to enable markdown support
 Plugin 'godlygeek/tabular'
-"Plugin 'plasticboy/vim-markdown'
+
+" [2015-04-18] switch to markdown-plugin from @tim pope@
+"Plugin 'tpope/vim-markdown'
+
+" [2016-05-24 another attempt with better syntaxhighlighting for markdown
+Plugin 'plasticboy/vim-markdown'
 
 " [2015-12-25] git wrapper.
 Plugin 'tpope/vim-fugitive'
