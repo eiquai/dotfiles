@@ -1,32 +1,74 @@
 ! make scrollbar compact:
 URxvt*.scrollstyle: plain 
 URxvt*.scrollBar_right: true
-URxvt*.background: #313131
-URxvt*.foreground: #e0e0e0 
+!URxvt*.background: #313131
+!URxvt*.foreground: #e0e0e0 
+
+
+!Begin new colors via terminal.sexy
+
+!special
+*.foreground:   #f8f8f2
+*.background:   #242424
+!*.background:   #272822
+*.cursorColor:  #f8f8f2
+
+! black
+*.color0:       #272822
+*.color8:       #75715e
+
+! red
+*.color1:       #f92672
+*.color9:       #f92672
+
+! green
+*.color2:       #a6e22e
+*.color10:      #a6e22e
+
+! yellow
+*.color3:       #f4bf75
+*.color11:      #f4bf75
+
+! blue
+*.color4:       #66d9ef
+*.color12:      #66d9ef
+
+! magenta
+*.color5:       #ae81ff
+*.color13:      #ae81ff
+
+! cyan
+*.color6:       #a1efe4
+*.color14:      #a1efe4
+
+! white
+*.color7:       #f8f8f2
+*.color15:      #f9f8f5
+
 
 !----THEME: MOLOKAI Begin
-!URxvt*background: #101010
-!URxvt*foreground: #d0d0d0
-!URxvt*color0: #101010
-URxvt*color0: #313131
-!URxvt*color1: #960050
-URxvt*color1: #F92672
-URxvt*color2: #66aa11
-URxvt*color3: #c47f2c
-URxvt*color4: #30309b
-URxvt*color5: #7e40a5
-URxvt*color6: #3579a8
-URxvt*color7: #9999aa
-!URxvt*color8: #303030
-URxvt*color8: #313131
-URxvt*color9: #ff0090
-URxvt*color10: #80ff00
-URxvt*color11: #ffba68
-URxvt*color12: #5f5fee
-URxvt*color13: #bb88dd
-URxvt*color14: #4eb4fa
-URxvt*color15: #d0d0d0
-!----THEME: MOLOKAI End
+!!URxvt*background: #101010
+!!URxvt*foreground: #d0d0d0
+!!URxvt*color0: #101010
+!URxvt*color0: #313131
+!!URxvt*color1: #960050
+!URxvt*color1: #F92672
+!URxvt*color2: #66aa11
+!URxvt*color3: #c47f2c
+!URxvt*color4: #30309b
+!URxvt*color5: #7e40a5
+!URxvt*color6: #3579a8
+!URxvt*color7: #9999aa
+!!URxvt*color8: #303030
+!URxvt*color8: #313131
+!URxvt*color9: #ff0090
+!URxvt*color10: #80ff00
+!URxvt*color11: #ffba68
+!URxvt*color12: #5f5fee
+!URxvt*color13: #bb88dd
+!URxvt*color14: #4eb4fa
+!URxvt*color15: #d0d0d0
+!!----THEME: MOLOKAI End
 
 !------FONTS-----------
 ! This font should work on every linux installation:
