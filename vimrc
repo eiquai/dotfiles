@@ -181,6 +181,10 @@ let g:Tex_completion_bibliographystyle = 'authoryear-icomp,abbr,alpha,plain,unsr
 autocmd FileType tex :NoMatchParen
 autocmd FileType tex setlocal nocursorline
 
+" [2016-05-24] disable fancy plugins for tex files
+autocmd FileType tex let b:tagbar_ignore = 1
+autocmd FileType tex let g:neocomplete#enable_at_startup = 0
+
 " [2016-02-12] Also, to maximize performance I added settings for highlighting
 " for more infos see http://vim.wikia.com/wiki/Fix_syntax_highlighting
 " to manually fix highlighting use command benath
@@ -223,6 +227,7 @@ Plugin 'gmarik/Vundle.vim'
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
 
 " [2016-05-24] plugin to display tags in a window (ordered by scope)
+" deactivatet to check performance
 Plugin 'majutsushi/tagbar'
 
 " [2016-05-24] dark color scheme for vim
@@ -231,25 +236,30 @@ Plugin 'majutsushi/tagbar'
 Plugin 'w0ng/vim-hybrid'
 
 " [2016-05-24] plugin for seamless navigation between tmux, panes and splits
-Plugin 'christoomey/vim-tmux-navigator'
+" deactivatet to check performance
+" Plugin 'christoomey/vim-tmux-navigator'
 
 " [2016-05-24] better hightlighting for JSON
 Plugin 'elzr/vim-json'
 
 " [2016-05-24] plugin to work with multiple cursors
 " See http://vimawesome.com/plugin/vim-multiple-cursors for instructions
-Plugin 'terryma/vim-multiple-cursors'
+" deactivatet to check performance
+" Plugin 'terryma/vim-multiple-cursors'
 
 " [2016-05-24] fuzzy search for files, buffers, tags and MRUs (most recent
 " used)
-Plugin 'ctrlpvim/ctrlp.vim'
+" deactivatet to check performance
+" Plugin 'ctrlpvim/ctrlp.vim'
 
 " [2016-05-24] plugin for completion in vim
 " Needs to be configured and tested
 " https://github.com/Shougo/neocomplete.vim
-Plugin 'Shougo/neocomplete'
+" deactivatet to check performance
+" Plugin 'Shougo/neocomplete'
 
 " [2016-05-24] plugin to visualize diffs in the gutter
+" deactivatet to check performance
 Plugin 'airblade/vim-gitgutter'
 
 " [2016-04-24] markdown folding
