@@ -247,6 +247,9 @@ Plugin 'elzr/vim-json'
 " deactivatet to check performance
 " Plugin 'terryma/vim-multiple-cursors'
 
+" [2016-05-24] alternativ to ctrlp that supports plugins
+Plugin 'shougo/unite.vim'
+
 " [2016-05-24] fuzzy search for files, buffers, tags and MRUs (most recent
 " used)
 " deactivatet to check performance
