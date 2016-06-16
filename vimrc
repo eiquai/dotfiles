@@ -28,7 +28,7 @@ set t_Co=256
 set nrformats=alpha
 
 " [2015-02-08] filetype treat *.md files as markdown-files 
-" autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " [2016-05-24] set key for taggbar
 set <F8>    :TagbarToggle<CR>
