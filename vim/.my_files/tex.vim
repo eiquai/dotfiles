@@ -9,9 +9,10 @@
 :call IMAP('FTN',   '\footnote{<++>}<++>', 'tex')
 
 :call IMAP('TSK',   '\todo{<+task+>} <++>','tex')
-:call IMAP('TLS',   '\listoftodos <++>', 'tx')
+:call IMAP('TLS',   '\listoftodos <++>', 'tex')
 
 :call IMAP('CO²',   'CO\textsubscript{2}<++>',  'tex')
 
+imap <buffer> <leader>it <Plug>Tex_InsertItemOnThisLine
 let g:Tex_SmartKeyQuote = 1
 
