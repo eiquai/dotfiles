@@ -1,5 +1,5 @@
 :call IMAP('CAS',   '\autocite[<++>]{<+source+>}<++>', 'tex')
-:call IMAP('CAL',   '\autocite[vgl.][<++>]{+source+>}<++>', 'tex')
+:call IMAP('CAL',   '\autocite[vgl.][<++>]{<+source+>}<++>', 'tex')
 
 :call IMAP('ITM',   '\item <++>', 'tex')
 :call IMAP('ITD',   '\item [ <++> ] <++>', 'tex')

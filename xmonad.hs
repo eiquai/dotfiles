@@ -105,4 +105,4 @@ myModMask               = mod4Mask -- [super]
 myBorderWidth           = 1
 myNormalBorderColor     = "#e0e0e0"
 myFocusedBorderColor    = "#F92672"
-myWorkSpaces    = [ "1:web", "2:term", "3:files", "4:chat", "5:music", "6:writing", "7:other" ]
+myWorkSpaces    = [ "1:web", "2:music", "3:reading", "4:writing", "5:files", "6:chat", "7:other", "8:tbd" ]
