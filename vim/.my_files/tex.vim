@@ -13,6 +13,8 @@
 
 :call IMAP('CO²',   'CO\textsubscript{2}<++>',  'tex')
 
+:call IMAP('URL',   '\url{<++>}<++>',  'tex')
+
 imap <buffer> <leader>it <Plug>Tex_InsertItemOnThisLine
 let g:Tex_SmartKeyQuote = 1
 
