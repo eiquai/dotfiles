@@ -59,7 +59,7 @@ floatHook = composeAll
 
 myStartupHook ::X ()
 myStartupHook = do
-    spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
+    spawn "compton -f -I 0.10 -O 0.10 --backend xrender --vsync opengl"
 
 main = do
     xmproc <- spawnPipe "xmobar"
