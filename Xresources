@@ -96,8 +96,8 @@ URxvt*bolditalicFont:   xft:RobotoMono-BoldItalic-11
 !Font looks fine, so no font tweaking need for now
 !URxvt.letterSpace: -1
 
-URxvt*.saveLines: 1000
-URxvt*.urlLauncher: chromium
+URxvt*.saveLines: 800
+!URxvt*.urlLauncher: chromium
 
 !Set Termname correctly:
 URxvt*.termName: rxvt-unicode-256color

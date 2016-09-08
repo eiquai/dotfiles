@@ -9,8 +9,33 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
+" [2016-08-17] configuration for vdebug
+let g:vdebug_options = { "server" :   '0.0.0.0.' }
+" For mapping files when debugging on a remote machine
+" lefthand: file path on remote machine
+" righthand: file paths on debugging machine (machine running vim)
+"    'path_maps': {"/mnt/hgfs/Sites/cakehph": "/Users/mark/Sites/cakephp"},
+
+
+" [2016-07-04]
+let g:syntastic_enable_sign=1
+let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_php_phpcs_args="--standard=PSR2 -n"
+
+" [2016-09-09] map keys to better navigate tabs
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+nnoremap <c-h> :tabprevious<CR>
+nnoremap <c-l> :tabnext<CR>
+
+" [2016-09-09] map F12 to toggle NERDTree split
+nnoremap <F12> :NERDTreeToggle<CR>
+
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
+
+" [2016-05-24] set key for taggbar
+set <F8>    :TagbarToggle<CR>
 
 " [2016-04-24] open VOom automatically for files that are handled by
 " vimoutliner
@@ -29,9 +54,6 @@ set nrformats=alpha
 
 " [2015-02-08] filetype treat *.md files as markdown-files 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-
-" [2016-05-24] set key for taggbar
-set <F8>    :TagbarToggle<CR>
 
 " [2015-02-08] command-line completion
 " Better command-line completion
@@ -225,6 +247,13 @@ Plugin 'gmarik/Vundle.vim'
 " in a FIXED syntax that informs about the date, name, purpose. It CAN be
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
+"
+" [2016-08-10] plugin for debugging
+Plugin 'joonty/vdebug'
+
+
+" [2016-07-04] plugin to check syntax for various languages
+Plugin 'scrooloose/syntastic'
 
 " [2016-05-24] plugin to display tags in a window (ordered by scope)
 " deactivatet to check performance

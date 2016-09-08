@@ -4,7 +4,8 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.Paste
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.NamedWindows
+import XMonad.Util.Run(spawnPipe, safeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Layout.Grid
 import XMonad.Layout.ResizableTile
@@ -13,6 +14,7 @@ import XMonad.Layout.NoBorders ( noBorders, smartBorders)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.ToggleLayouts
+import XMonad.StackSet as W
 --import XMonad.Hooks.EwmhDesktops --ambigous with fullscreenEventHook
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
@@ -45,6 +47,14 @@ myVisibleWSRight    =   ")"
 myCurrentWSLeft     =   "["
 myCurrentWSRight    =   "]"
 
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name        <- getName w
+        Just idx    <- fmap (W.findTag w) $ gets windowset
+
+        safeSpawn "notify-send" [show name, "workspace" ++ idx]
 
 myManageHook = floatHook <+> fullscreenManageHook
 floatHook = composeAll
@@ -61,10 +71,11 @@ myStartupHook ::X ()
 myStartupHook = do
     spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
 
+
 main = do
     xmproc <- spawnPipe "xmobar"
 
-    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig { 
+    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ defaultConfig { 
         manageHook      = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , startupHook   = myStartupHook <+> startupHook defaultConfig
         , handleEventHook   =   handleEventHook defaultConfig <+> fullscreenEventHook
@@ -74,11 +85,11 @@ main = do
                         , ppTitle = xmobarColor "#F92672" "#272822" . shorten myTitleLength
                         , ppCurrent =   xmobarColor myCurrentWSColor "" . wrap myCurrentWSLeft myCurrentWSRight
                         , ppVisible =   xmobarColor myVisibleWSColor "" . wrap myVisibleWSLeft myVisibleWSRight 
-                        , ppUrgent =   xmobarColor myUrgentWSColor "" . wrap myUrgentWSLeft myUrgentWSRight 
+                        , ppUrgent  =   xmobarColor myUrgentWSColor  "" . wrap myUrgentWSLeft myUrgentWSRight 
                         }
         , modMask                 = myModMask
         , terminal                = myTerminal
-        , workspaces              = myWorkSpaces
+        , XMonad.workspaces              = myWorkSpaces
     
         --appearance
         , borderWidth           = myBorderWidth
