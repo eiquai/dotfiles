@@ -9,6 +9,19 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
+" [2016-10-25] integrate output of ALE into vim statusbar (via vim-airline)
+let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+let g:ale_linters = {
+    \'php': ['php', 'phpcs' ],
+    \    }
+let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
+let g:ale_set_loclist = 1
+let g:ale_sign_error = '✗»'
+let g:ale_sign_warning = 'W☞'
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_warning_str  = 'Warning'
+
 " [2016-08-17] configuration for vdebug
 let g:vdebug_options = { "server" :   '0.0.0.0.' }
 " For mapping files when debugging on a remote machine
@@ -17,10 +30,10 @@ let g:vdebug_options = { "server" :   '0.0.0.0.' }
 "    'path_maps': {"/mnt/hgfs/Sites/cakehph": "/Users/mark/Sites/cakephp"},
 
 
-" [2016-07-04]
-let g:syntastic_enable_sign=1
-let g:syntastic_php_checkers=['php', 'phpcs']
-let g:syntastic_php_phpcs_args="--standard=PSR2 -n"
+" [2016-07-04] syntax chcking via syntastic
+"let g:syntastic_enable_sign=1
+"let g:syntastic_php_checkers=['php', 'phpcs']
+"let g:syntastic_php_phpcs_args="--standard=PSR2 -n"
 
 " [2016-09-09] map keys to better navigate tabs
 nnoremap th :tabfirst<CR>
@@ -164,7 +177,7 @@ set cursorline
 
 " [2016-03-13] Set leader key from [\] to [,] as it is more convenient on
 " DE-layout
-"let mapleader = "\"
+"let mapleader = '\'
 let maplocalleader = ","
 let mapleader = ","
 
@@ -211,8 +224,10 @@ autocmd FileType tex let g:neocomplete#enable_at_startup = 0
 " for more infos see http://vim.wikia.com/wiki/Fix_syntax_highlighting
 " to manually fix highlighting use command benath
 " : syntax sync fromstart
-autocmd BufEnter * :syn sync minlines=250
-autocmd BufEnter * :syn sync maxlines=500
+"autocmd BufEnter * :syn sync minlines=250
+"autocmd BufEnter * :syn sync fromstart
+"autocmd BufEnter * :syn sync maxlines=750  "at work I won't be using much LaTeX
+nnoremap <LocalLeader>n:call syntax sync fromstart<CR>
 
 " settings below should be made in vimtex file?
 " let g:Tex_Menus = 0 "no Tex-menus
@@ -247,13 +262,19 @@ Plugin 'gmarik/Vundle.vim'
 " in a FIXED syntax that informs about the date, name, purpose. It CAN be
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
-"
+
+" [2016-10-25] linting via ALE (Asynchronous lint engine)
+Plugin 'w0rp/ale'
+
+" [2016-09-15] syntax hightlighting for twig
+Plugin 'evidens/vim-twig'
+
 " [2016-08-10] plugin for debugging
 Plugin 'joonty/vdebug'
 
 
 " [2016-07-04] plugin to check syntax for various languages
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 " [2016-05-24] plugin to display tags in a window (ordered by scope)
 " deactivatet to check performance
