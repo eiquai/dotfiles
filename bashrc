@@ -13,7 +13,7 @@ alias ncmpc='ncmpc -f ~/.ncmpc_config'
 alias bopdf='~/Dropbox/BerlinOnline/4_other/bo_pdf/bopdf.sh'
 
 # make ls use colors automatically
-alias ls='ls --color=auto'
+alias ls='ls --color'
 #-------------- ALIAS END -----------------
 
 PS1='[\u@\h \W]\$ '
