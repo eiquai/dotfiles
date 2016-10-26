@@ -8,19 +8,27 @@
 " The following syntax must be used:
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
+" [2016-03-13] Set leader key from [\] to [,] as it is more convenient on
+" DE-layout
+"let mapleader = '\'
+"let maplocalleader = ','
+"let mapleader = '\'
 
 " [2016-10-25] integrate output of ALE into vim statusbar (via vim-airline)
 let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
 let g:ale_linters = {
-    \'php': ['php', 'phpcs' ],
+    \'php': ['phpcs'],
     \    }
+let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
 let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
 let g:ale_set_loclist = 1
 let g:ale_sign_error = '✗»'
-let g:ale_sign_warning = 'W☞'
+let g:ale_sign_warning = '⌕☞'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_echo_msg_warning_str  = 'Warning'
+nmap <silent> <leader>] <Plug>(ale_previous_wrap)
+nmap <silent> <leader>[ <Plug>(ale_next_wrap)
 
 " [2016-08-17] configuration for vdebug
 let g:vdebug_options = { "server" :   '0.0.0.0.' }
@@ -175,11 +183,6 @@ set cursorline
 " see http://www.kubieziel.de/blog/archives/1333-Die-vim-LaTeXSuite.html
 " for more infos
 
-" [2016-03-13] Set leader key from [\] to [,] as it is more convenient on
-" DE-layout
-"let mapleader = '\'
-let maplocalleader = ","
-let mapleader = ","
 
 
 " settings for grep. Grep is used for autocomplete.
@@ -227,7 +230,7 @@ autocmd FileType tex let g:neocomplete#enable_at_startup = 0
 "autocmd BufEnter * :syn sync minlines=250
 "autocmd BufEnter * :syn sync fromstart
 "autocmd BufEnter * :syn sync maxlines=750  "at work I won't be using much LaTeX
-nnoremap <LocalLeader>n:call syntax sync fromstart<CR>
+nnoremap <silent><LocalLeader>n :syn sync fromstart<CR>
 
 " settings below should be made in vimtex file?
 " let g:Tex_Menus = 0 "no Tex-menus
