@@ -14,6 +14,11 @@
 "let maplocalleader = ','
 "let mapleader = '\'
 
+" [2016-11-01] set spelllang for .md files
+" in which event        for wich filetype       activate        language
+au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de
+au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us
+
 " [2016-10-25] integrate output of ALE into vim statusbar (via vim-airline)
 let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
 let g:ale_linters = {
