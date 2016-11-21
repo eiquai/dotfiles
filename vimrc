@@ -14,6 +14,9 @@
 "let maplocalleader = ','
 "let mapleader = '\'
 
+" [2016-11-21] create command to format json
+com! FormatJSON %!python -m json.tool
+
 " [2016-11-01] set spelllang for .md files
 " in which event        for wich filetype       activate        language
 au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de

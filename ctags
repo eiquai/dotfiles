@@ -1,0 +1,4 @@
+--recursive=yes
+--exclude=.git
+--exclude=db/*
+--exclude=log/*
