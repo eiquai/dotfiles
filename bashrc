@@ -10,13 +10,14 @@
 alias tor='~/tor-browser_en-US/start-tor-browser --detach'
 alias chromium='setsid /usr/bin/chromium >& /dev/null &'
 alias ncmpc='ncmpc -f ~/.ncmpc_config'
-alias bopdf='~/Dropbox/BerlinOnline/4_other/bo_pdf/bopdf.sh'
+alias bopdf='~/BerlinOnline/4_other/bo_pdf/bopdf.sh'
+alias tree='tree -C'
 
 # make ls use colors automatically
 alias ls='ls --color'
 #-------------- ALIAS END -----------------
 
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
 
 export EDITOR="vim" 
 
@@ -29,6 +30,8 @@ export PATH
 #TERM='screen-256color'
 COLORTERM='rxvt-unicode-256color'
 
+# Set GPG TTY
+export GPG_TTY=$(tty)
 
 # find running ssh-agent and use it
 # info from: http://blog.joncairns.com/2013/12/understanding-ssh-agent-and-ssh-add/
@@ -43,11 +46,10 @@ COLORTERM='rxvt-unicode-256color'
 
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+    #export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)" #see man gpg-agent for further info
     export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 fi
 
-# Set GPG TTY
-export GPG_TTY=$(tty)
 
 # Refresh gpg-agent tty in case user switches to X
 gpg-connect-agent updatestartuptty /bye >/dev/null
