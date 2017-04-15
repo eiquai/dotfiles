@@ -226,6 +226,9 @@ Plugin 'gmarik/Vundle.vim'
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
 
+" [2017-04-15] asynchronous linter for vim
+Plugin 'w0rp/ale'
+
 " [2016-05-24] plugin to display tags in a window (ordered by scope)
 " deactivatet to check performance
 Plugin 'majutsushi/tagbar'
@@ -322,6 +325,7 @@ Plugin 'tpope/vim-fugitive'
 " [2016-02-08] use surround-plugin
 " plug-in makes editing brackets and ticks comfortable
 Plugin 'tpope/vim-surround'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

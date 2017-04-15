@@ -1,0 +1,15 @@
+
+    ln -s ~/dotfiles/bashrc ~/.bashrc
+    ln -s ~/dotfiles/bash_profile ~/.bash_profile
+    ln -s ~/dotfiles/Xresources ~/.Xresources
+    ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+##install bundle:
+
+    ln -s ~/dotfiles/vimrc ~/.vimrc
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+## create symbolic link for colorscheme monokai
+    mkdir ~/.vim/colors
+    ln -s  ~/.vim/bundle/vim-monokai/colors/monokai.vim ~/.vim/colors/monokai.vim
+
+
