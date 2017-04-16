@@ -18,3 +18,5 @@ set statusbar-fg '#36B9CF'
 set adjust-open width
 set page-padding 1
 set incremental-search 1
+
+set selection-clipboard clipboard #set target for selection to clipboard instead of x11 primary

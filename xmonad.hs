@@ -4,7 +4,8 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.Paste
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.NamedWindows
+import XMonad.Util.Run(spawnPipe, safeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Layout.Grid
 import XMonad.Layout.ResizableTile
@@ -13,6 +14,7 @@ import XMonad.Layout.NoBorders ( noBorders, smartBorders)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.ToggleLayouts
+import XMonad.StackSet as W
 --import XMonad.Hooks.EwmhDesktops --ambigous with fullscreenEventHook
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
@@ -33,7 +35,7 @@ import Data.Ratio ((%))
 
 -- VARIABLES FOR XMOBAR
 myTitleColor        =   "#272822"
-myTitleLength       =   40
+myTitleLength       =   15
 myCurrentWSColor    =   "#F92672"
 myVisibleWSColor    =   "#66D9EF"
 --myUrgentWSColor     =   "#F92672"
@@ -61,6 +63,15 @@ myStartupHook ::X ()
 myStartupHook = do
     spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
 
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name    <- getName w
+        Just idx    <- fmap (W.findTag w) $ gets windowset
+
+        safeSpawn "notify-send" [show name, "workspace" ++ idx]
+
 main = do
     xmproc <- spawnPipe "xmobar"
 
@@ -78,14 +89,14 @@ main = do
                         }
         , modMask                 = myModMask
         , terminal                = myTerminal
-        , workspaces              = myWorkSpaces
+        , XMonad.workspaces              = myWorkSpaces
     
         --appearance
         , borderWidth           = myBorderWidth
         , normalBorderColor     = myNormalBorderColor
         , focusedBorderColor    = myFocusedBorderColor
         } `additionalKeys`
-        [ ((mod4Mask .|. shiftMask, xK_l), spawn "physlock -ds")
+        [((mod4Mask .|. shiftMask, xK_l), spawn "physlock -ds") --deactivated because it freezes the system
         , ((mod1Mask        , xK_space), spawn "/home/timon/dotfiles/bin/layout_switch")
         , ((mod4Mask            , xK_m), sendMessage ToggleStruts)
         , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +2db")
