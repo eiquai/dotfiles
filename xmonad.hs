@@ -3,6 +3,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Paste
 import XMonad.Util.NamedWindows
 import XMonad.Util.Run(spawnPipe, safeSpawn)
@@ -10,7 +11,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Layout.Grid
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.NoBorders ( noBorders, smartBorders)
+import XMonad.Layout.NoBorders(noBorders, smartBorders)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.ToggleLayouts
@@ -38,7 +39,6 @@ myTitleColor        =   "#272822"
 myTitleLength       =   40
 myCurrentWSColor    =   "#F92672"
 myVisibleWSColor    =   "#66D9EF"
---myUrgentWSColor     =   "#F92672"
 myUrgentWSColor     =   "#F92672"
 myUrgentWSLeft      =   "!"
 myUrgentWSRight     =   "!"
@@ -53,10 +53,10 @@ instance UrgencyHook LibNotifyUrgencyHook where
     urgencyHook LibNotifyUrgencyHook w = do
         name        <- getName w
         Just idx    <- fmap (W.findTag w) $ gets windowset
-
         safeSpawn "notify-send" [show name, "workspace" ++ idx]
 
 myManageHook = floatHook <+> fullscreenManageHook
+
 floatHook = composeAll
     [ className =? "gimp"   --> doFloat
     , resource =? "synapse" --> doFloat
@@ -69,27 +69,30 @@ floatHook = composeAll
 
 myStartupHook ::X ()
 myStartupHook = do
-    spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
+     spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
+ 
+main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
+--withUrgencyHook LibNotifyUrgencyHook <- This still is ToDo!
 
+myPP = xmobarPP
+            { ppTitle = xmobarColor "#F92672" "#272822" . shorten myTitleLength
+            , ppCurrent =   xmobarColor myCurrentWSColor "" . wrap myCurrentWSLeft myCurrentWSRight
+            , ppVisible =   xmobarColor myVisibleWSColor "" . wrap myVisibleWSLeft myVisibleWSRight 
+            , ppUrgent  =   xmobarColor myUrgentWSColor  "" . wrap myUrgentWSLeft myUrgentWSRight 
+            }
 
-main = do
-    xmproc <- spawnPipe "xmobar"
+myBar = "xmobar ~/dotfiles/xmobarrc"
 
-    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ defaultConfig { 
-        manageHook      = manageDocks <+> myManageHook <+> manageHook defaultConfig
-        , startupHook   = myStartupHook <+> startupHook defaultConfig
-        , handleEventHook   =   handleEventHook defaultConfig <+> fullscreenEventHook
-        , layoutHook    = avoidStruts $ toggleLayouts (noBorders Full) $ smartBorders $ layoutHook defaultConfig
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "#F92672" "#272822" . shorten myTitleLength
-                        , ppCurrent =   xmobarColor myCurrentWSColor "" . wrap myCurrentWSLeft myCurrentWSRight
-                        , ppVisible =   xmobarColor myVisibleWSColor "" . wrap myVisibleWSLeft myVisibleWSRight 
-                        , ppUrgent  =   xmobarColor myUrgentWSColor  "" . wrap myUrgentWSLeft myUrgentWSRight 
-                        }
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_m)
+
+myConfig = def {
+        manageHook      = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook def
+        , startupHook   = myStartupHook <+> startupHook def
+        , handleEventHook   =   handleEventHook def <+> fullscreenEventHook
+        , layoutHook    = avoidStruts $ toggleLayouts (noBorders Full) $ smartBorders $ layoutHook def
         , modMask                 = myModMask
         , terminal                = myTerminal
-        , XMonad.workspaces              = myWorkSpaces
+        , XMonad.workspaces       = myWorkSpaces
     
         --appearance
         , borderWidth           = myBorderWidth
@@ -110,6 +113,7 @@ main = do
         , ((0, xK_Print), spawn "scrot")
         , ((0, xK_Insert), pasteSelection) -- there is a problem here, as it seems to escape some characters
         ]
+
 
 myTerminal              = "urxvt"
 myModMask               = mod4Mask -- [super]

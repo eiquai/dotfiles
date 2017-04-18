@@ -7,7 +7,7 @@ URxvt*.scrollBar_right: true
 ! special
 !*.foreground:   #f1ebeb
 !*.background:   #272822
-*.foreground:   #e0e0e0
+*.foreground:   #ffffff
 *.background:   #313131
 *.cursorColor:  #f1ebeb
 
@@ -88,10 +88,10 @@ Xft.autohint:       true
 
 !New to make vim-airline look good :)
 !URxvt*font: xft:Droid Sans Mono for Powerline-11
-URxvt*font:             xft:Roboto Mono for Powerline-11
-URxvt*boldFont:         xft:RobotoMono-Bold-11
-URxvt*italicFont:       xft:RobotoMono-Italic-11
-URxvt*bolditalicFont:   xft:RobotoMono-BoldItalic-11
+URxvt*font:             xft:Roboto Mono for Powerline-10:antialias:no
+URxvt*boldFont:         xft:RobotoMono-Bold-10:antialias:no
+URxvt*italicFont:       xft:RobotoMono-Italic-10:antialias:no
+URxvt*bolditalicFont:   xft:RobotoMono-BoldItalic-10:antialias:no
 
 !Font looks fine, so no font tweaking need for now
 !URxvt.letterSpace: -1

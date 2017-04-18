@@ -2,13 +2,17 @@ Config {
 
         -- APPEARANCE
         --font = "xft:RobotoMono-Regular:size=9:antialiasing=false"
-        font = "xft:Roboto Mono for Powerline:size=9:antialiasing=true"
+        font = "xft:Roboto Mono for Powerline:size=9:antialiasing=false"
         , position = TopW L 100
         --font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+        , alpha = 120,
+        , iconRoot = "."
         , bgColor = "#272822"
         , fgColor = "#e0e0e0"
         , border = TopB 0
         , borderColor = "#272822"
+        , textOffset = -1
+        , iconOffset = -1
 
 
         -- GENERAL BEHAVIOR
