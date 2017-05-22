@@ -1,0 +1,11 @@
+[Unit]
+Description=Lock X session using physlock
+Before=sleep.target suspend.target hibernate.target
+
+[Service]
+User=timon
+type=simple
+ExecStart=/usr/bin/physlock -s
+
+[Install]
+WantedBy=sleep.target suspend.target hibernate.target
