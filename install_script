@@ -4,6 +4,9 @@
     ln -s ~/dotfiles/Xresources ~/.Xresources
     ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
     ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
+
+    sudo cp ~/dotfiles/physlock.service /etc/systemd/system/physlock.service
+    sudo systemctl enable physlock.service
 ##install bundle:
 
     ln -s ~/dotfiles/vimrc ~/.vimrc
