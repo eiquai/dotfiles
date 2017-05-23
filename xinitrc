@@ -18,6 +18,8 @@ fi
 export LIBVA_DRIVER_NAME=vdpau
 
 xsetroot -curser_name left_ptr
+setxkbmap de
+exec xmonad
 
 # exec gnome-session
 # exec startkde
