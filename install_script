@@ -3,6 +3,7 @@
     ln -s ~/dotfiles/bash_profile ~/.bash_profile
     ln -s ~/dotfiles/Xresources ~/.Xresources
     ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+    ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
 ##install bundle:
 
     ln -s ~/dotfiles/vimrc ~/.vimrc
