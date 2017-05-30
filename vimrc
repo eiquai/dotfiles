@@ -16,6 +16,7 @@
 
 " [2016-11-21] create command to format json
 com! FormatJSON %!python -m json.tool
+com! DisplayDot :silent !dot -Tx11 %
 
 " [2016-11-01] set spelllang for .md files
 " in which event        for wich filetype       activate        language
@@ -59,6 +60,7 @@ nnoremap <c-l> :tabnext<CR>
 
 " [2016-09-09] map F12 to toggle NERDTree split
 nnoremap <F12> :NERDTreeToggle<CR>
+" nnoremap <F12> :vertical resize 
 
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
