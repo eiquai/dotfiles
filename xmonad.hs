@@ -39,6 +39,7 @@ myTitleColor        =   "#272822"
 myTitleLength       =   40
 myCurrentWSColor    =   "#F92672"
 myVisibleWSColor    =   "#66D9EF"
+--myUrgentWSColor     =   "#F92672"
 myUrgentWSColor     =   "#F92672"
 myUrgentWSLeft      =   "!"
 myUrgentWSRight     =   "!"
@@ -67,29 +68,28 @@ floatHook = composeAll
     , resource =? "gnome-control-center" --> doFloat
     , resource =? "gnome-weather" --> doFloat]
 
+
 myStartupHook ::X ()
 myStartupHook = do
-     spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
- 
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
---withUrgencyHook LibNotifyUrgencyHook <- This still is ToDo!
-
-myPP = xmobarPP
-            { ppTitle = xmobarColor "#F92672" "#272822" . shorten myTitleLength
-            , ppCurrent =   xmobarColor myCurrentWSColor "" . wrap myCurrentWSLeft myCurrentWSRight
-            , ppVisible =   xmobarColor myVisibleWSColor "" . wrap myVisibleWSLeft myVisibleWSRight 
-            , ppUrgent  =   xmobarColor myUrgentWSColor  "" . wrap myUrgentWSLeft myUrgentWSRight 
-            }
-
-myBar = "xmobar ~/dotfiles/xmobarrc"
+    spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
 
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_m)
 
-myConfig = def {
+main = do
+    xmproc <- spawnPipe "xmobar"
+
+    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ def { 
         manageHook      = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook def
-        , startupHook   = myStartupHook <+> startupHook def
-        , handleEventHook   =   handleEventHook def <+> fullscreenEventHook
         , layoutHook    = avoidStruts $ toggleLayouts (noBorders Full) $ smartBorders $ layoutHook def
+        , startupHook   = myStartupHook <+> startupHook def
+        , handleEventHook   =   handleEventHook def <+> fullscreenEventHook <+> docksEventHook
+        , logHook = dynamicLogWithPP $ def 
+                        { ppOutput = hPutStrLn xmproc
+                        , ppTitle = xmobarColor "#F92672" "#272822" . shorten myTitleLength
+                        , ppCurrent =   xmobarColor myCurrentWSColor "" . wrap myCurrentWSLeft myCurrentWSRight
+                        , ppVisible =   xmobarColor myVisibleWSColor "" . wrap myVisibleWSLeft myVisibleWSRight 
+                        , ppUrgent  =   xmobarColor myUrgentWSColor  "" . wrap myUrgentWSLeft myUrgentWSRight 
+                        }
         , modMask                 = myModMask
         , terminal                = myTerminal
         , XMonad.workspaces       = myWorkSpaces
@@ -102,18 +102,17 @@ myConfig = def {
         [ ((mod4Mask .|. shiftMask, xK_l), spawn "physlock -ds")
         , ((mod1Mask        , xK_space), spawn "/home/timon/dotfiles/bin/layout_switch")
         , ((mod4Mask            , xK_m), sendMessage ToggleStruts)
-        , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
-        , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
-        , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+        , ((0, xF86XK_Mail), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
+        , ((0, xF86XK_Calculator), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
+        , ((0, xF86XK_HomePage), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
         , ((controlMask .|. mod1Mask, xK_t), spawn "urxvt")
         , ((controlMask, xK_space), spawn "synapse")
-        , ((0, xF86XK_Tools), spawn "systemctl suspend")
+        , ((0, xF86XK_Sleep), spawn "systemctl suspend")
         , ((0, 0x1008FF21), spawn "systemctl suspend")
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         , ((0, xK_Print), spawn "scrot")
         , ((0, xK_Insert), pasteSelection) -- there is a problem here, as it seems to escape some characters
         ]
-
 
 myTerminal              = "urxvt"
 myModMask               = mod4Mask -- [super]
