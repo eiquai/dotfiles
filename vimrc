@@ -9,6 +9,9 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
+" [2016-11-24] set colorcolumn to indicate if a line surpasses 80 characters
+set colorcolumn=80
+
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
 
@@ -105,6 +108,10 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set softtabstop=0
+
+
+" [2016-11-24] set texwidth for .tex-files
+autocmd BufNew,BufRead *.tex setlocal textwidth=80
 
 " [2015-02-08] wrap lines
 " wrap lines
