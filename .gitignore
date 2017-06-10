@@ -1,3 +1,4 @@
 dotbot/*
 fonts
 vim/bundle/**
+*.swp
