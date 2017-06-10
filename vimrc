@@ -15,10 +15,25 @@ set colorcolumn=80
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
 
+" [2017-06-09] map <F12> to NERDTreeToggle
+nnoremap <F12> :NERDTreeToggle<CR>
+
+" [2017-06-09] map localleader t to Voomtoggle
+nnoremap <Leader>t :Voomtoggle<CR>
+
+" [2016-09-20] map keys for better tab navigation
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+nnoremap <c-h> :tabprevious<CR>
+nnoremap <c-l> :tabnext<CR>
+
+
 " [2016-04-24] open VOom automatically for files that are handled by
 " vimoutliner
 " currently not working
 "au FileType vo_base :Voom vimoutliner
+autocmd BufRead *.tex :Voom latex
+"autocmd BufRead *.md :Voom markdown set filetype=markdown
 
 " 2016-05-24] set updatetime for vim-gitgutter
 set updatetime=250
@@ -31,7 +46,7 @@ set t_Co=256
 set nrformats=alpha
 
 " [2015-02-08] filetype treat *.md files as markdown-files 
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown|:Voom markdown
 
 " [2016-05-24] set key for taggbar
 set <F8>    :TagbarToggle<CR>
