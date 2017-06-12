@@ -61,4 +61,5 @@ fi
 export GPG_TTY=$(tty)
 
 # Refresh gpg-agent tty in case user switches to X
+# not working for t400 and t420s because here we use gdm
 gpg-connect-agent updatestartuptty /bye >/dev/null
