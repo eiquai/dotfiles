@@ -36,28 +36,15 @@ COLORTERM='rxvt-unicode-256color'
 #source ~/dotfiles/bin/ssh-find-agent
 #set_ssh_agent_socket
 
-
-# Start gpg-agent via systemd - but otherwise we could start it here:
-#if ! pgrep -x -u "$USER}" gpg-agent >/dev/null 2>&1; then
-#    gpg-connect-agent /bye /dev/null 2>&1
-#fi
-
 # Start gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
     gpg-connect-agent /bye >/dev/null 2>&1
-    #gpg-connect-agent reloadagent /bye >/dev/null 2>&1 #this could work
-
 fi
 
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
     export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
 fi
-
-#unset SSH_AGENT_PID
-#if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-#    export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-#fi
 
 # Set GPG TTY
 export GPG_TTY=$(tty)
