@@ -44,7 +44,9 @@ COLORTERM='rxvt-unicode-256color'
 
 # Start gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-    gpg-connect-agent /bye /dev/null 2>&1
+    gpg-connect-agent /bye >/dev/null 2>&1
+    #gpg-connect-agent reloadagent /bye >/dev/null 2>&1 #this could work
+
 fi
 
 unset SSH_AGENT_PID
