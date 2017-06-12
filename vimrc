@@ -9,9 +9,6 @@
 " [YYYY-MM-DD] SETTING_NAME
 " PURPOSE COMMENT
 
-" [2016-11-24] set colorcolumn to indicate if a line surpasses 80 characters
-set colorcolumn=80
-
 " [2016-05-08] map key to execute latex wordcount
 nnoremap <F11> :!detex % \| wc -w<CR>
 
@@ -32,7 +29,6 @@ nnoremap <c-l> :tabnext<CR>
 " vimoutliner
 " currently not working
 "au FileType vo_base :Voom vimoutliner
-autocmd BufRead *.tex :Voom latex
 "autocmd BufRead *.md :Voom markdown set filetype=markdown
 
 " 2016-05-24] set updatetime for vim-gitgutter
@@ -64,13 +60,16 @@ set hlsearch
 set incsearch
 
 " [2015-02-08] case sensitive search
-" search will be cas insensitive except when using capital letters
+" search will be case insensitive except when using capital letters
 set ignorecase
 set smartcase
 
 " [2015-02-08] indention
 " Enable indenting (same indention as line before)
-set autoindent
+" [2017-06-10] deactivate indention for now as this destroys formatting of
+" latex files
+set breakindent
+" set autoindent
 
 " [2015-02-08] mouse usage
 " Enable use of mouse for all modes
@@ -126,7 +125,12 @@ set softtabstop=0
 
 
 " [2016-11-24] set texwidth for .tex-files
-autocmd BufNew,BufRead *.tex setlocal textwidth=80
+    " [2017-06-10] use Voom plugin for .tex-files
+    " [2016-11-24] set colorcolumn to indicate if a line surpasses 80 characters
+    " currently it doesn't work to define multiple commands to be executed
+    " for *.tex files
+"autocmd BufNew,BufRead *.tex setlocal textwidth=80 | set colorcolumn=80|:Voom latex
+autocmd BufNew,BufRead *.tex setlocal textwidth=80 
 
 " [2015-02-08] wrap lines
 " wrap lines
@@ -141,7 +145,6 @@ set nolist
 set textwidth=0
 set wrapmargin=0
 set formatoptions-=t
-
 
 " [2015-02-08] cursor position
 " horizontal line to indicate cursor position
@@ -200,6 +203,8 @@ let g:Tex_completion_bibliographystyle = 'authoryear-icomp,abbr,alpha,plain,unsr
 
 " [2016-02-12] performance settings for latex suite (vimtex)
 " for more infos see: https://sourceforge.net/p/vim-latex/mailman/message/32672109/
+autocmd FileType tex let g:Tex_menus = 0
+autocmd FileType tex let g:Tex_PackagesMenu = 0
 autocmd FileType tex :NoMatchParen
 autocmd FileType tex setlocal nocursorline
 
@@ -209,7 +214,7 @@ autocmd FileType tex let g:neocomplete#enable_at_startup = 0
 
 " [2016-02-12] Also, to maximize performance I added settings for highlighting
 " for more infos see http://vim.wikia.com/wiki/Fix_syntax_highlighting
-" to manually fix highlighting use command benath
+" to manually fix highlighting use command beneath
 " : syntax sync fromstart
 autocmd BufEnter * :syn sync minlines=250
 autocmd BufEnter * :syn sync maxlines=500
