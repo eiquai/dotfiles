@@ -1,0 +1,23 @@
+
+    ln -s ~/dotfiles/bashrc ~/.bashrc
+    ln -s ~/dotfiles/bash_profile ~/.bash_profile
+    ln -s ~/dotfiles/Xresources ~/.Xresources
+    ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+    ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
+
+    sudo cp ~/dotfiles/physlock.service /etc/systemd/system/physlock.service
+    sudo systemctl enable physlock.service
+##install bundle:
+
+    ln -s ~/dotfiles/vimrc ~/.vimrc
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+## create symbolic link for colorscheme monokai and molokai
+    mkdir ~/.vim/colors
+    ln -s  ~/.vim/bundle/vim-monokai/colors/monokai.vim ~/.vim/colors/monokai.vim
+    ln -s  ~/.vim/bundle/molokai/molokai.vim ~/.vim/colors/molokai.vim
+
+## create symbolic link for tex.vim (self defined macros) and templates
+    ln -s ~/dotfiles/vim/vim-latex/tex.vim ~/.vim/bundle/vim-latex/ftplugin/tex.vim
+    ln -s ~/dotfiles/vim/vim-latex/templates/my_article.tex ~/.vim/bundle/vim-latex/ftplugin/latex-suite/templates/my_article.tex
+    ln -s ~/dotfiles/vim/vim-latex/templates/my_excerpt.tex ~/.vim/bundle/vim-latex/ftplugin/latex-suite/templates/my_excerpt.tex
