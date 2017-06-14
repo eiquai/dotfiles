@@ -71,8 +71,16 @@ nnoremap <Leader>t :Voomtoggle<CR>          "<Leader>t to toggle Voom; TODO: thi
 set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plugin; not tested if it is working
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 SELF DEFINED COMMANDS                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+com! FormatJSON %!python -m json.tool   "reformat current buffer as JSON file
+com! DisplayDot :silent !dot -Tx11 %    "render current file as dot graph and display it
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
+" au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
 autocmd BufRead *.md :Voom markdown set filetype=markdown "set .md files to markdown format; use Voom for .md files
 " TODO: Add a command to refresh voom after saving (rebuild tree using :Voom
 " command)
@@ -80,6 +88,22 @@ autocmd BufRead *.md :Voom markdown set filetype=markdown "set .md files to mark
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" VIM ALE
+let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+let g:ale_linters = {
+    \'php': ['phpcs'],
+    \    }
+let g:ale_php_phpcs_standard = 'PSR2'
+let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
+let g:ale_set_loclist = 1
+let g:ale_sign_error = '✗»'
+let g:ale_sign_warning = '⌕☞'
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_warning_str  = 'Warning'
+nmap <silent> <leader>] <Plug>(ale_previous_wrap)
+nmap <silent> <leader>[ <Plug>(ale_next_wrap)
 
 " GITGUTTER
 set updatetime=250  "set interval in which gitgutter is updated
