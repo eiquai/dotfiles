@@ -75,14 +75,14 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
 com! DisplayDot :silent !dot -Tx11 %                                    "render current file as dot graph and display it
-com! RenderMarkdown :call RenderMarkdown()                              "render markdown using pandoc
-com! DisplayMarkdown :silent !zathura %:p.pdf                           "TODO: see if we can make this one command + dettach the zathura process from the vim process
+com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
+com! MarkdownDisplay :silent !zathura %:p.pdf                           "TODO: see if we can make this one command + dettach the zathura process from the vim process
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenderMarkdown()
-    :silent :execute '!coproc pandoc -f markdown -o%:p.pdf -i %'        "currently the process is not executed asynchronously
+function! MarkdownRender()                                              "currently the process is not executed asynchronously
+    :silent :execute '!coproc pandoc -f markdown -o%:p.pdf -i %' 
     redraw!
 endfunction
 
@@ -91,7 +91,9 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-autocmd BufRead *.md :Voom markdown set filetype=markdown "set .md files to markdown format; use Voom for .md files
+autocmd BufRead *.md set filetype=markdown | :Voom
+autocmd BufWritePost *.md :Voom                         "rebuild tree after saving the document
+let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 " TODO: Add a command to refresh voom after saving (rebuild tree using :Voom
 " command)
 
