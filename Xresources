@@ -105,3 +105,8 @@ URxvt*.termName: rxvt-unicode-256color
 ! use visual bell instead of beep:
 URxvt*urgentOnBell: false
 URxvt*visualBell: true
+
+!settings for notify-osd
+!apparently not working :(
+!URxvt*urgentOnBell: true
+!URxvt*visualBell: false
