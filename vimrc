@@ -94,10 +94,8 @@ au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us 
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
 autocmd BufRead,BufEnter *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
 autocmd BufRead *.md set filetype=markdown | :Voom
-autocmd BufWritePost *.md :Voom                         "rebuild tree after saving the document
+autocmd BufWritePost *.md, *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
-" TODO: Add a command to refresh voom after saving (rebuild tree using :Voom
-" command)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
