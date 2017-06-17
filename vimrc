@@ -18,8 +18,8 @@ set incsearch       "highlight matches when searching
 set ignorecase      "no case sensitivity when searching
 set smartcase       "enable case sensitivity for searchterms that start with capital letters?
 set autoindent      "enable auto indenting
-"TODO currently indention for latex files seems broken
-"someone propoesd to use `set breakindent` instead of autoindent
+set breakindent     "enable breakindent - for further informations see `:help breakindent`
+"TODO currently indention for latex files seems broken someone proposed to use `set breakindent` instead of autoindent
 set mouse=a         "enable mouse for all modes
 set number          "display always line numbers
 syntax enable       "enable syntax highlighting
