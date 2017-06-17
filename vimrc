@@ -78,6 +78,7 @@ com! FormatJSON %!python -m json.tool                                   "reforma
 com! DisplayDot :silent !dot -Tx11 %                                    "render current file as dot graph and display it
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
 com! MarkdownDisplay :silent !zathura %:p.pdf                           "TODO: see if we can make this one command + dettach the zathura process from the vim process
+com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
@@ -85,6 +86,15 @@ com! MarkdownDisplay :silent !zathura %:p.pdf                           "TODO: s
 function! MarkdownRender()                                              "currently the process is not executed asynchronously
     :silent :execute '!coproc pandoc -f markdown -o%:p.pdf -i %' 
     redraw!
+endfunction
+
+function! UpdateDictionaries()                                          "Update all spellfiles based on .add-files in dotfiles/vim/spell
+    :silent
+    for d in glob('~/.vim/spell/*.add', 1, 1)
+        if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+            exec 'mkspell! ' . fnameescape(d)
+        endif
+    endfor
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
