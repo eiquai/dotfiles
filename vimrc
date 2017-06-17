@@ -92,7 +92,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-autocmd BufRead,BufEnter *.md setlocal textwidth=80
+autocmd BufRead,BufEnter *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
 autocmd BufRead *.md set filetype=markdown | :Voom
 autocmd BufWritePost *.md :Voom                         "rebuild tree after saving the document
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
