@@ -18,7 +18,6 @@ set incsearch       "highlight matches when searching
 set ignorecase      "no case sensitivity when searching
 set smartcase       "enable case sensitivity for searchterms that start with capital letters?
 set autoindent      "enable auto indenting
-set breakindent     "enable breakindent - for further informations see `:help breakindent`
 "TODO currently indention for latex files seems broken someone proposed to use `set breakindent` instead of autoindent
 set mouse=a         "enable mouse for all modes
 set number          "display always line numbers
@@ -34,8 +33,10 @@ set expandtab           "expand tabs with spaces
 set softtabstop=0
 "wrap lines             "unset because it hurts readability with VIM-ORGMODE
 "for further informations on wrapping see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
-set wrap
-set linebreak
+set wrap                    "break text with virtual new lines instead of hard ones
+set linebreak               "wrap long lines at characters defined in `breakat` (next line)
+set breakat=" !@*-;:,./?"   "linebreaks shall only happen after complete words! For more infos see `:help breakat`
+set breakindent             "wrapped line will continue visually indented.For further informations see `:help breakindent`
 set nolist
 set textwidth=0
 set wrapmargin=0
@@ -91,6 +92,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
+autocmd BufRead,BufEnter *.md setlocal textwidth=80
 autocmd BufRead *.md set filetype=markdown | :Voom
 autocmd BufWritePost *.md :Voom                         "rebuild tree after saving the document
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
