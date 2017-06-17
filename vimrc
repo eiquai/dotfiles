@@ -73,8 +73,18 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED COMMANDS                             "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-com! FormatJSON %!python -m json.tool   "reformat current buffer as JSON file
-com! DisplayDot :silent !dot -Tx11 %    "render current file as dot graph and display it
+com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
+com! DisplayDot :silent !dot -Tx11 %                                    "render current file as dot graph and display it
+com! RenderMarkdown :call RenderMarkdown()                              "render markdown using pandoc
+com! DisplayMarkdown :silent !zathura %:p.pdf                           "TODO: see if we can make this one command + dettach the zathura process from the vim process
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 SELF DEFINED FUNCTIONS                            "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenderMarkdown()
+    :silent :execute '!coproc pandoc -f markdown -o%:p.pdf -i %'        "currently the process is not executed asynchronously
+    redraw!
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
@@ -90,16 +100,18 @@ autocmd BufRead *.md :Voom markdown set filetype=markdown "set .md files to mark
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " VIM ALE
-let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+"let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {
     \'php': ['phpcs'],
     \    }
 let g:ale_php_phpcs_standard = 'PSR2'
-let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+"let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+let g:ale_echo_cursor=1
 let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
 let g:ale_set_loclist = 1
 let g:ale_sign_error = '✗»'
-let g:ale_sign_warning = '⌕☞'
+let g:ale_sign_warning = '⚠☞'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_echo_msg_warning_str  = 'Warning'
 nmap <silent> <leader>] <Plug>(ale_previous_wrap)
