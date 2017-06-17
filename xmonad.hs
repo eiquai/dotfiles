@@ -68,7 +68,6 @@ floatHook = composeAll
     , resource =? "gnome-control-center" --> doFloat
     , resource =? "gnome-weather" --> doFloat]
 
-
 myStartupHook ::X ()
 myStartupHook = do
     spawn "compton -f -I 0.10 -O 0.10 --backend glx --vsync opengl"
@@ -102,15 +101,18 @@ main = do
         [ ((mod4Mask .|. shiftMask, xK_l), spawn "physlock -ds")
         , ((mod1Mask        , xK_space), spawn "/home/timon/dotfiles/bin/layout_switch")
         , ((mod4Mask            , xK_m), sendMessage ToggleStruts)
-        , ((0, xF86XK_Mail), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
-        , ((0, xF86XK_Calculator), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
-        , ((0, xF86XK_HomePage), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+        , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
+        , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
+        , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
         , ((controlMask .|. mod1Mask, xK_t), spawn "urxvt")
         , ((controlMask, xK_space), spawn "synapse")
-        , ((0, xF86XK_Sleep), spawn "systemctl suspend")
+        , ((0, xF86XK_Tools), spawn "systemctl suspend")
         , ((0, 0x1008FF21), spawn "systemctl suspend")
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         , ((0, xK_Print), spawn "scrot")
+        , ((mod1Mask.|. shiftMask, xK_l), spawn "playerctl next")
+        , ((mod1Mask.|. shiftMask, xK_h), spawn "playerctl previous")
+        , ((mod1Mask.|. shiftMask, xK_space), spawn "playerctl play-pause")
         , ((0, xK_Insert), pasteSelection) -- there is a problem here, as it seems to escape some characters
         ]
 
