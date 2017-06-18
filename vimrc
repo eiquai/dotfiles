@@ -77,14 +77,20 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
 com! DisplayDot :silent !dot -Tx11 %                                    "render current file as dot graph and display it
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
-com! MarkdownDisplay :silent !zathura %:p.pdf                           "TODO: see if we can make this one command + dettach the zathura process from the vim process
+com! MarkdownDisplay :call MarkdownDisplay()                            "open the according .pdf-file with zathura
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MarkdownRender()                                              "currently the process is not executed asynchronously
-    :silent :execute '!coproc pandoc -f markdown -o%:p.pdf -i %' 
+                                                                        "TODO: add arguments for table of content, formatting etc.
+    :silent :execute '!coproc pandoc --toc -f markdown -o %:p.pdf -i %'
+    redraw!
+endfunction
+
+function! MarkdownDisplay()
+    :silent :execute '!coproc zathura %:p.pdf'
     redraw!
 endfunction
 
