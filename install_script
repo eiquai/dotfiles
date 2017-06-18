@@ -17,6 +17,11 @@
     ln -s  ~/.vim/bundle/vim-monokai/colors/monokai.vim ~/.vim/colors/monokai.vim
     ln -s  ~/.vim/bundle/molokai/molokai.vim ~/.vim/colors/molokai.vim
 
+## create symbolic link for spell.add files
+
+    ln -s ~/dotfiles/vim/spell/de.utf-8.add ~/.vim/spell/de.utf-8.add
+    ln -s ~/dotfiles/vim/spell/en.utf-8.add ~/.vim/spell/en.utf-8.add
+
 ## create symbolic link for tex.vim (self defined macros) and templates
     ln -s ~/dotfiles/vim/vim-latex/tex.vim ~/.vim/bundle/vim-latex/ftplugin/tex.vim
     ln -s ~/dotfiles/vim/vim-latex/templates/my_article.tex ~/.vim/bundle/vim-latex/ftplugin/latex-suite/templates/my_article.tex
