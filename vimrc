@@ -16,6 +16,10 @@
 
 " [2016-11-21] create command to format json
 com! FormatJSON %!python -m json.tool
+
+"[2016-06-07] create command to render dot-graphic
+" it could be worth the effort to create a pdf-document first and then open it
+" with mupdf or another pdf-viewer
 com! DisplayDot :silent !dot -Tx11 %
 
 " [2016-11-01] set spelllang for .md files
