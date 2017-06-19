@@ -75,7 +75,7 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 "                 SELF DEFINED COMMANDS                             "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
-com! DisplayDot :silent !dot -Tx11 %                                    "render current file as dot graph and display it
+com! DotDisplay :call DotDisplay()                                      
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
 com! MarkdownDisplay :call MarkdownDisplay()                            "open the according .pdf-file with zathura
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
@@ -83,6 +83,11 @@ com! UpdateDictonaries :call UpdateDictionaries()                       "call se
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DotDisplay()
+    :silent :execute '!coproc dot -Tx11 %'
+    redraw!
+endfunction
+
 function! MarkdownRender()                                              "currently the process is not executed asynchronously
                                                                         "TODO: add arguments for table of content, formatting etc.
     :silent :execute '!coproc pandoc --toc -f markdown -o %:p.pdf -i %'
