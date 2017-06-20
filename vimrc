@@ -76,6 +76,7 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
 com! DotDisplay :call DotDisplay()                                      
+com! DotToPdf   :call DotToPdf()                                        
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
 com! MarkdownDisplay :call MarkdownDisplay()                            "open the according .pdf-file with zathura
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
@@ -85,6 +86,11 @@ com! UpdateDictonaries :call UpdateDictionaries()                       "call se
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! DotDisplay()
     :silent :execute '!coproc dot -Tx11 %'
+    redraw!
+endfunction
+
+function! DotToPdf()                                                    "use arguments for different programs (algorithms)
+    :silent :execute '!coproc dot -Tpdf -O %'
     redraw!
 endfunction
 
