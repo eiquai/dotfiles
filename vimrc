@@ -120,16 +120,16 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
-autocmd BufRead,BufNewFile,BufEnter *.md set filetype=markdown
-autocmd BufRead,BufEnter,BufNewFile *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
-autocmd BufNewFile *.md :Voom                           "for a new, empty file just run plain :Voom
-autocmd BufWritePost *.md call voom#BodyUpdateTree()    "update the tree after the file has been saved
+autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80
+autocmd BufNewFile,BufReadPost *.md :Voom
+autocmd BufWritePost *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM VOom
+let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
 " VIM ALE
 let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
