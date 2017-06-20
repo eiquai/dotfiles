@@ -15,12 +15,8 @@ set hlsearch        "better hightlighting for searchresults
 set incsearch       "highlight matches while typing searchterm
 set ignorecase      "no case sensitivity when searching
 set smartcase       "enable case sensitivity for searchterms that start with capital letters?
-set autoindent      "enable auto indenting
-"TODO currently indention for latex files seems broken
-"someone proposed to use `set breakindent` instead of autoindent
-set formatoptions+=2    "Use indent from 2nd line of a paragraph
-"it could be, that formatoption+=2 is what I have been looking for all along
-"for .text files
+set autoindent      "enable auto indenting TODO currently indention for latex files seems broken; someone proposed to use `set breakindent` instead of autoindent
+set formatoptions+=2    "Use indent from 2nd line of a paragraph "it could be, that formatoption+=2 is what I have been looking for all along for .text files
 set mouse=a         "enable mouse for all modes
 set number          "display always line numbers
 syntax enable       "enable syntax highlighting
@@ -33,8 +29,7 @@ set tabstop=4           "a tab equals four spaces
 set shiftwidth=4
 set expandtab           "expand tabs with spaces
 set softtabstop=0
-"wrap lines             "unset because it hurts readability with VIM-ORGMODE
-"for further informations on wrapping see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
+"wrap lines             "unset because it hurts readability with VIM-ORGMODE for further informations on wrapping see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
 set wrap                    "break text with virtual new lines instead of hard ones
 set linebreak               "wrap long lines at characters defined in `breakat` (next line)
 set breakat=" !@*-;:,./?"   "linebreaks shall only happen after complete words! For more infos see `:help breakat`
@@ -47,7 +42,7 @@ set cursorline      "horizontal line to indicate cursor position
 set diffopt=filler  "add vertical spaces to keep splits aligned
 set diffopt+=iwhite "ignore white space
 set nostartofline   "don't reset the cursor to start of line
-set noshowmode      "don't show the mode as it is already displayed via airline.vim
+set noshowmode      "only works when it is at the bottom of the .vimrc - i have now idea why :(
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           KEY MAPPINGS                            "
@@ -125,11 +120,12 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-autocmd BufRead,BufEnter *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
-autocmd BufRead *.md set filetype=markdown | :Voom
+let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
+autocmd BufRead,BufNewFile,BufEnter *.md set filetype=markdown
+autocmd BufRead,BufEnter,BufNewFile *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
+autocmd BufNewFile *.md :Voom                           "for a new, empty file just run plain :Voom
 autocmd BufWritePost *.md call voom#BodyUpdateTree()    "update the tree after the file has been saved
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
-let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
@@ -341,3 +337,4 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+set noshowmode
