@@ -1,8 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" various settings from around the web
-"
 " switch from date based comments about changes to other format:
 " Any change will must be commented.
 " The comment must inform about the purpose of the change. What shall the
@@ -14,11 +12,15 @@ set t_Co=256        "set vim to 256 colors
 set nrformats=alpha "set number format to decimal; numbers with leading zero won't be treated as octal
 set wildmenu        "better command-line completion
 set hlsearch        "better hightlighting for searchresults
-set incsearch       "highlight matches when searching
+set incsearch       "highlight matches while typing searchterm
 set ignorecase      "no case sensitivity when searching
 set smartcase       "enable case sensitivity for searchterms that start with capital letters?
-set autoindent      "enable auto indenting -> see breakindent in line 39!!!
-"TODO currently indention for latex files seems broken someone proposed to use `set breakindent` instead of autoindent
+set autoindent      "enable auto indenting
+"TODO currently indention for latex files seems broken
+"someone proposed to use `set breakindent` instead of autoindent
+set formatoptions+=2    "Use indent from 2nd line of a paragraph
+"it could be, that formatoption+=2 is what I have been looking for all along
+"for .text files
 set mouse=a         "enable mouse for all modes
 set number          "display always line numbers
 syntax enable       "enable syntax highlighting
@@ -42,6 +44,10 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions-=t
 set cursorline      "horizontal line to indicate cursor position
+set diffopt=filler  "add vertical spaces to keep splits aligned
+set diffopt+=iwhite "ignore white space
+set nostartofline   "don't reset the cursor to start of line
+set noshowmode      "don't show the mode as it is already displayed via airline.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           KEY MAPPINGS                            "
@@ -74,7 +80,7 @@ set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED COMMANDS                             "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
+com! FormatJSON %!python -m json.tool   "reformat current buffer as JSON file
 com! DotDisplay :call DotDisplay()                                      
 com! DotToPdf   :call DotToPdf()                                        
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
@@ -130,18 +136,18 @@ let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " VIM ALE
-"let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
 let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {
     \'php': ['phpcs'],
     \    }
 let g:ale_php_phpcs_standard = 'PSR2'
-"let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
 let g:ale_echo_cursor=1
 let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
 let g:ale_set_loclist = 1
 let g:ale_sign_error = '✗»'
-let g:ale_sign_warning = '⚠☞'
+let g:ale_sign_warning = '⌕☞'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_echo_msg_warning_str  = 'Warning'
 nmap <silent> <leader>] <Plug>(ale_previous_wrap)
