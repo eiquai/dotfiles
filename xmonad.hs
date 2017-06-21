@@ -106,7 +106,7 @@ main = do
         , ((0, xF86XK_HomePage), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
         , ((controlMask .|. mod1Mask, xK_t), spawn "urxvt")
         , ((controlMask, xK_space), spawn "synapse")
-        , ((0, xF86XK_Sleep), spawn "systemctl suspend")
+        , ((0, xF86XK_Sleep), spawn "systemctl hibernate")
         , ((0, 0x1008FF21), spawn "systemctl suspend")
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         , ((0, xK_Print), spawn "scrot")
