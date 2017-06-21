@@ -122,11 +122,7 @@ au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us 
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
 autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80
 autocmd BufNewFile,BufReadPost *.md :Voom
-"autocmd BufWritePost *.md :Voom
 autocmd BufWritePost *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
-"PROBLEM this works only, if a tree is already present it does not work, if there is no tree!
-"What will always work is a plain `:voom` call
-"TODO find a way to update the tree onSave and solve the problem
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
