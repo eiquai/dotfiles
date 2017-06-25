@@ -26,3 +26,7 @@
     ln -s ~/dotfiles/vim/vim-latex/tex.vim ~/.vim/bundle/vim-latex/ftplugin/tex.vim
     ln -s ~/dotfiles/vim/vim-latex/templates/my_article.tex ~/.vim/bundle/vim-latex/ftplugin/latex-suite/templates/my_article.tex
     ln -s ~/dotfiles/vim/vim-latex/templates/my_excerpt.tex ~/.vim/bundle/vim-latex/ftplugin/latex-suite/templates/my_excerpt.tex
+
+## create symbolic link for ctag config file:
+
+    ln -s ~/dotfiles/ctags ~/.ctags
