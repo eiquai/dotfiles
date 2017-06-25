@@ -1,8 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" various settings from around the web
-"
 " switch from date based comments about changes to other format:
 " Any change will must be commented.
 " The comment must inform about the purpose of the change. What shall the
@@ -14,11 +12,11 @@ set t_Co=256        "set vim to 256 colors
 set nrformats=alpha "set number format to decimal; numbers with leading zero won't be treated as octal
 set wildmenu        "better command-line completion
 set hlsearch        "better hightlighting for searchresults
-set incsearch       "highlight matches when searching
+set incsearch       "highlight matches while typing searchterm
 set ignorecase      "no case sensitivity when searching
 set smartcase       "enable case sensitivity for searchterms that start with capital letters?
-set autoindent      "enable auto indenting -> see breakindent in line 39!!!
-"TODO currently indention for latex files seems broken someone proposed to use `set breakindent` instead of autoindent
+set autoindent      "enable auto indenting TODO currently indention for latex files seems broken; someone proposed to use `set breakindent` instead of autoindent
+set formatoptions+=2    "Use indent from 2nd line of a paragraph "it could be, that formatoption+=2 is what I have been looking for all along for .text files
 set mouse=a         "enable mouse for all modes
 set number          "display always line numbers
 syntax enable       "enable syntax highlighting
@@ -31,8 +29,7 @@ set tabstop=4           "a tab equals four spaces
 set shiftwidth=4
 set expandtab           "expand tabs with spaces
 set softtabstop=0
-"wrap lines             "unset because it hurts readability with VIM-ORGMODE
-"for further informations on wrapping see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
+"wrap lines             "unset because it hurts readability with VIM-ORGMODE for further informations on wrapping see http://vim.wikia.com/wiki/Word_wrap_without_line_breaks for further
 set wrap                    "break text with virtual new lines instead of hard ones
 set linebreak               "wrap long lines at characters defined in `breakat` (next line)
 set breakat=" !@*-;:,./?"   "linebreaks shall only happen after complete words! For more infos see `:help breakat`
@@ -42,6 +39,10 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions-=t
 set cursorline      "horizontal line to indicate cursor position
+set diffopt=filler  "add vertical spaces to keep splits aligned
+set diffopt+=iwhite "ignore white space
+set nostartofline   "don't reset the cursor to start of line
+set noshowmode      "only works when it is at the bottom of the .vimrc - i have now idea why :(
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           KEY MAPPINGS                            "
@@ -68,14 +69,14 @@ nnoremap <c-l> :tabnext<CR>
 " Keymappings for actions
 nnoremap <F12> :NERDTreeToggle<CR>          "<F12> to toggle Nerdtree
 nnoremap <F11> :!detex % \| wc -w<CR>       "<F11> for simple wordcount
-nnoremap <Leader>t :Voomtoggle<CR>          "<Leader>t to toggle Voom; TODO: this mapping should only be set for .md and .tex files
-set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plugin; not tested if it is working
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED COMMANDS                             "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-com! FormatJSON %!python -m json.tool                                   "reformat current buffer as JSON file
+com! FormatJSON %!python -m json.tool   "reformat current buffer as JSON file
 com! DotDisplay :call DotDisplay()                                      
+com! DotToPdf   :call DotToPdf()                                        
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
 com! MarkdownDisplay :call MarkdownDisplay()                            "open the according .pdf-file with zathura
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
@@ -85,6 +86,11 @@ com! UpdateDictonaries :call UpdateDictionaries()                       "call se
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! DotDisplay()
     :silent :execute '!coproc dot -Tx11 %'
+    redraw!
+endfunction
+
+function! DotToPdf()                                                    "use arguments for different programs (algorithms)
+    :silent :execute '!coproc dot -Tpdf -O %'
     redraw!
 endfunction
 
@@ -111,31 +117,51 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"LATEX
+let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
+
+"--------------------------------------------------------------------
+
+" MARKDOWN
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-autocmd BufRead,BufEnter *.md setlocal textwidth=80     "set textwidth only for markdown files to 80 characters per line
-autocmd BufRead *.md set filetype=markdown | :Voom
-autocmd BufWritePost *.md call voom#BodyUpdateTree()    "update the tree after the file has been saved
+autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80 
+autocmd BufNewFile,BufRead,BufEnter *.md nnoremap <Leader>t :Voomtoggle<CR>
+"set Voomtoggle only for md files; TODO: set also for .tex file: set also for .tex files
+autocmd BufNewFile,BufReadPost *.md :Voom
+autocmd BufWritePost *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
-let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
+"PHP
+let g:tagbar_phpctags_bin='/usr/bin/phpctags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM VOom
+let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
 " VIM ALE
-"let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
+let g:airline_section_error = '%{ALEGetStatusLine()}' "ALE output in vim-airline
 let g:airline#extensions#ale#enabled=1
 let g:ale_linters = {
     \'php': ['phpcs'],
     \    }
 let g:ale_php_phpcs_standard = 'PSR2'
-"let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
+let g:ale_statusline_format = ['✗%d', '⚠%d', '☼ok']
 let g:ale_echo_cursor=1
 let g:ale_echo_msg_format = '[%linter%]: %s [%severity%]'
 let g:ale_set_loclist = 1
 let g:ale_sign_error = '✗»'
-let g:ale_sign_warning = '⚠☞'
+let g:ale_sign_warning = '⌕☞'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_echo_msg_warning_str  = 'Warning'
 nmap <silent> <leader>] <Plug>(ale_previous_wrap)
@@ -211,6 +237,9 @@ Plugin 'gmarik/Vundle.vim'
 " in a FIXED syntax that informs about the date, name, purpose. It CAN be
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
+
+" [2017-06-21] PHP autocompletion
+Plugin 'shawncplus/phpcomplete.vim'
 
 " [2016-09-20] Support for R:
 Plugin 'jalvesaq/Nvim-R'
@@ -329,3 +358,4 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+set noshowmode
