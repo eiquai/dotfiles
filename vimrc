@@ -69,8 +69,7 @@ nnoremap <c-l> :tabnext<CR>
 " Keymappings for actions
 nnoremap <F12> :NERDTreeToggle<CR>          "<F12> to toggle Nerdtree
 nnoremap <F11> :!detex % \| wc -w<CR>       "<F11> for simple wordcount
-nnoremap <Leader>t :Voomtoggle<CR>          "<Leader>t to toggle Voom; TODO: this mapping should only be set for .md and .tex files
-set <F8>    :TagbarToggle<CR>               "this should set <F8> for Tagbar plugin; not tested if it is working
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED COMMANDS                             "
@@ -118,13 +117,32 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"LATEX
+let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
+
+"--------------------------------------------------------------------
+
+" MARKDOWN
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
-autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80
+autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80 
+autocmd BufNewFile,BufRead,BufEnter *.md nnoremap <Leader>t :Voomtoggle<CR>
+"set Voomtoggle only for md files; TODO: set also for .tex file: set also for .tex files
 autocmd BufNewFile,BufReadPost *.md :Voom
 autocmd BufWritePost *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 
+"PHP
+let g:tagbar_phpctags_bin='/usr/bin/phpctags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
