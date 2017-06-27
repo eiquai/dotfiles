@@ -44,6 +44,9 @@ set diffopt+=iwhite "ignore white space
 set nostartofline   "don't reset the cursor to start of line
 set noshowmode      "only works when it is at the bottom of the .vimrc - i have now idea why :(
 
+set timeoutlen=800  "set mapping delays
+set ttimeoutlen=0   "set keycode delays
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           KEY MAPPINGS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,6 +180,7 @@ colorscheme monokai "use monokai colorscheme; alternative: molokai
 " VIM-AIRLINE
 let g:airline_powerline_fonts = 1       "use fonts patched for powerline
 let g:airline_theme="dark"              "use dark theme
+let g:airline#extensions#tagbar#enabled = 0 "disable tagbar integration (performance issue)
 set laststatus=2
 
 " VIM LATEX SUITE
