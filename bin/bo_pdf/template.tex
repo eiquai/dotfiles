@@ -1,0 +1,311 @@
+% sudo tlmgr install pdfpages fancybox changepage fancyhdr setspace graphicx rotating usenames lastpage titlesec titling booktabs sourcesanspro ly1 mweights
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$]{$documentclass$}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\usepackage{wrapfig}
+\usepackage{calc}
+\usepackage{csquotes}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage{varwidth}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{fancybox}
+\usepackage{changepage}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage[regular,default]{sourcesanspro}
+\usepackage[font=small,justification=raggedleft,singlelinecheck=false,textfont=normal,up]{caption}
+\definecolor{BORed}{cmyk}{0.24,1,1,0.18}
+\definecolor{BOGreyDark}{cmyk}{0.65,0.54,0.44,0.18}
+\definecolor{BOGreyLight}{cmyk}{0.29,0.22,0.20,0.18}
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1}
+\def\tightlist{}
+\let\Oldincludegraphics\includegraphics
+\let\Oldcaption\caption
+\usepackage[regular,default]{sourcesanspro}
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{subsection}{#1}%
+}
+
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\def\mylength{\maxwidth}
+\newcommand{\img}[1]{\vspace*{0,5cm}\hspace*{-0cm}\Oldincludegraphics[width=\mylength]{#1}\vspace*{0,5cm}}
+%\renewcommand{\includegraphics}[1]{\vspace*{0,5cm}\hspace*{0cm}\Oldincludegraphics[width=\mylength]{#1}}
+\renewcommand{\includegraphics}[1]{\vspace*{0,5cm}\hspace*{0cm}\Oldincludegraphics[width=16cm]{#1}}
+\geometry{
+	headsep=1.5cm,
+%	left=7cm,
+	footskip=3cm
+}
+
+\newcommand{\sectionbreak}{\clearpage}
+
+% No headrule
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}
+{
+    \fancyhead[L]{}
+	\fancyhead[R]{}
+    \fancyfoot[L]{}
+	\fancyfoot[R]{}
+}
+
+% For more than two levels in the table of contents chang here
+\setcounter{tocdepth}{3}
+\pagestyle{fancy}{
+	\fancyhead[R]{\Oldincludegraphics[height=0.6cm]{/home/timon/BerlinOnline/4_other/bo_pdf/BerlinOnline_Logo.pdf}}
+	\fancyhead[L]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+}
+
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
+\fi
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+$endif$
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+$if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+$endif$
+$if(tables)$
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+$endif$
+
+
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              linkcolor=false
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=false,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$BORed$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$BORed$endif$,
+            pdfborder={0 0 0}}
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$if(numbersections)$
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(lang)$
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[$lang$]{babel}
+\fi
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\date{$date$}
+
+
+
+\hyphenation{BerlinOnline}
+
+
+
+\begin{document}
+
+$if(title)$
+
+\newgeometry{
+	margin=3cm,
+	footskip=2cm,
+	headsep=1.0cm
+}
+\fancyhfoffset[E,O]{0pt}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\begin{titlepage}
+\thispagestyle{plain}
+\vspace*{7cm}
+\raggedleft{\Oldincludegraphics[height=0.8cm]{/home/timon/BerlinOnline/4_other/bo_pdf/BerlinOnline_Logo_Full.pdf}}
+\vspace*{0,5cm}
+
+\parbox{13cm}{\raggedleft{
+ \huge \mdseries  \begin{spacing}{1.1} $title$ \end{spacing}}
+}
+
+\vspace*{0,3cm}
+\parbox{13cm}{\raggedleft{
+\Large \mdseries  \begin{spacing}{1.1} \color{BOGreyDark} $subtitle$ \end{spacing}}
+ }
+
+\end{titlepage}
+\clearpage
+\setcounter{page}{1}
+
+
+
+\pagebreak
+\hypersetup{linkcolor=black}
+\restoregeometry
+\fancyhfoffset[E,O]{0pt}
+
+
+\restoregeometry
+\fancyhfoffset[E,O]{0pt}
+
+\pagebreak
+
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+	\hypersetup{linkcolor=black}
+	\tableofcontents
+	\pagebreak
+}
+$endif$
+
+
+$body$
+
+$if(natbib)$
+$if(biblio-files)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$biblio-files$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+\pagebreak
+
+\thispagestyle{empty}
+\vspace*{\fill}
+
+\color{BORed}
+
+\textbf{BerlinOnline Stadtportal GmbH \& Co. KG}\\
+Karl-Liebknecht-Straße 29\\
+10178 Berlin
+ \\\\
+Timon Schröder \\
+Timon.Schroeder@berlinonline.de\\
+030 2327 6287\\
+www.berlinonline.net
+ \\\\
+Amtsgericht Berlin-Charlottenburg, HRA 31951\\
+Sitz der Gesellschaft: Berlin, Deutschland\\
+USt.-IdNr: DE 219 483 549
+\vspace*{-2,2cm}
+\end{document}
