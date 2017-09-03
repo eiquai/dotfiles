@@ -9,6 +9,10 @@ Config {
         , fgColor = "#e0e0e0"
         , border = TopB 0
         , borderColor = "#272822"
+        , textOffset = -1
+        , iconOffset = -1
+        , iconRoot = "."
+        , alpha = 255
 
 
         -- GENERAL BEHAVIOR
@@ -93,11 +97,11 @@ Config {
                             ]
         , Run StdinReader  --["--minwidth=50"]
 
-        , Run Volume "default" "Master" [ "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
-
+        --, Run Volume "default" "Master" [ "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
         ]
         -- LAYOUT
         , sepChar   = "%"   -- delineator between plugin and text
         , alignSep  = "}{"  -- separator between left-right alignment
-        , template = "%StdinReader% | %battery% | %multicpu% | %coretemp% | %memory% | <action=`gnome-control-center`>%dynnetwork% </action>}{ %default:Master%  <action=`gnome-weather`>%EDDT% </action>| <action=`gnome-calendar`>%date%</action> | <action=`~/dotfiles/bin/layout_switch`>%kbd%</action>"
+        --, template = "%StdinReader% | %battery% | %multicpu% | %coretemp% | %memory% | <action=`gnome-control-center`>%dynnetwork% </action>}{ %default:Master%  <action=`gnome-weather`>%EDDT% </action>| <action=`gnome-calendar`>%date%</action> | <action=`~/dotfiles/bin/layout_switch`>%kbd%</action>"
+        , template = "%StdinReader% | %battery% | %multicpu% | %coretemp% | %memory% | <action=`gnome-control-center`>%dynnetwork% </action>}{ <action=`gnome-weather`>%EDDT% </action>| <action=`gnome-calendar`>%date%</action> | <action=`~/dotfiles/bin/layout_switch`>%kbd%</action>"
         }
