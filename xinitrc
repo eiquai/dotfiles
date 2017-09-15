@@ -7,4 +7,7 @@ xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 xinput set-prop "TPPS/2 IBM TrackPoint" "Device Accel Constant Deceleration" 0.75
 
 xsetroot -cursor_name left_ptr
-feh --bg-fill wallpaper-dark-arch.png
+~/.fehbg &
+
+#to set the wallpaper:
+#feh --bg-fill wallpaper-dark-arch.png
