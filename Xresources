@@ -3,8 +3,10 @@ URxvt*.scrollstyle: plain
 URxvt*.scrollBar_right: true
 !URxvt*.background: #313131
 URxvt*.foreground: #e0e0e0 
-urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0200/c800
+!URxvt*.transparent: true !fake transparency
+!URxvt*.shading: 20 !fake transparency
+URxvt*.depth: 32
+URxvt*.background: rgba:0000/0000/0200/c800
 
 !special
 *.foreground:   #f1ebeb
