@@ -7,7 +7,7 @@ Config {
         , textOffset = -1
         , iconOffset = -1
         , iconRoot = "."
-        , alpha = 255
+        , alpha = 1
         , position = TopW L 100
         --font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , bgColor = "#272822"
