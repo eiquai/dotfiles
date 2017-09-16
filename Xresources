@@ -1,6 +1,10 @@
 ! make scrollbar compact:
 URxvt*.scrollstyle: plain 
 URxvt*.scrollBar_right: true
+URxvt*.scrollBar: false
+
+URxvt*.internalBorder: 0
+
 !URxvt*.background: #313131
 URxvt*.foreground: #e0e0e0 
 !URxvt*.transparent: true !fake transparency
