@@ -88,6 +88,7 @@ com! FoldManual :set foldmethod=manual                  "enable manual folding w
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! ViewHtml :!w3m %
+com! ReadHtml :%!w3m %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
