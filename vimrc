@@ -255,7 +255,10 @@ Plugin 'gmarik/Vundle.vim'
 " in a FIXED syntax that informs about the date, name, purpose. It CAN be
 " extended by a short comment.
 " SYNTAX: [YYYY-MM-DD] PLUGINNAME PURPOSE COMMENT
-"
+
+" [2017-09-18] Autocompletion
+Plugin 'valloric/youcompleteme'
+
 " [2017-09-16] Plugin fzf - finally start using a fuzzy finder
 Plugin 'junegunn/fzf.vim'
 
