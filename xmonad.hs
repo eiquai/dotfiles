@@ -61,7 +61,7 @@ myManageHook = floatHook <+> fullscreenManageHook <+> manageScratchPad
 
 floatHook = composeAll
     [ className =? "gimp"   --> doFloat
-    , resource =? "synapse" --> doFloat
+    , resource =? "synapse" --> doIgnore
     , resource =? "arandr" --> doFloat
     , resource =? "keepassx2" --> doFloat
     , resource =? "skype" --> doFloat
