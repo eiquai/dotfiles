@@ -163,6 +163,11 @@ let g:tagbar_phpctags_bin='/usr/bin/phpctags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"VIM youcompleteme
+ "add preview for preview scratchpad
+set completeopt=noinsert,menu
+let g:ycm_autoclose_preview_window_after_completion = 1
+
 " VIM VOom
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
