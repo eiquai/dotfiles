@@ -86,6 +86,7 @@ com! UpdateDictonaries :call UpdateDictionaries()                       "call se
 com! FixSyntaxHighlighting :syntax sync fromstart
 com! FoldManual :set foldmethod=manual                  "enable manual folding with a simple command
 com! ToggleLineNumbers :set relativenumber!
+com! Bashrun    :!./%
 
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
