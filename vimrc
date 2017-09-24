@@ -167,6 +167,11 @@ let g:tagbar_phpctags_bin='/usr/bin/phpctags'
  "add preview for preview scratchpad
 set completeopt=noinsert,menu
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_filetype_whitelist = {'*':1}
+let g:ycm_filetype_blacklist = {
+    \ 'tagbar' : 1,
+    \ 'markdown' : 1
+    \}
 
 " VIM VOom
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
