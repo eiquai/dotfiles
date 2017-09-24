@@ -3,7 +3,7 @@ Config {
         -- APPEARANCE
         --font = "xft:RobotoMono-Regular:size=9:antialiasing=false"
         font = "xft:Roboto Mono for Powerline:size=8:antialiasing=true"
-        , additionalFonts = []
+        , additionalFonts = ["xft:FontAwesome:size=8"]
         , textOffset = -1
         , iconOffset = -1
         , iconRoot = "."
