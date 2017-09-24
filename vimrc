@@ -85,11 +85,12 @@ com! MarkdownDisplay :call MarkdownDisplay()                            "open th
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
 com! FixSyntaxHighlighting :syntax sync fromstart
 com! FoldManual :set foldmethod=manual                  "enable manual folding with a simple command
+com! ToggleLineNumbers :set relativenumber!
+
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! ViewHtml :!w3m %
 com! ReadHtml :%!w3m %
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -127,6 +128,14 @@ function! UpdateDictionaries()                                          "Update 
         endif
     endfor
 endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                AUTOCOMMANDS FOR ALL FILETYPES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set rnu
+    autocmd BufLeave,FocusLost,InsertEnter  * set nornu
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
@@ -159,19 +168,30 @@ autocmd BufWritePost,BufEnter *.md call voom#BodyUpdateTree()     "update the tr
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 
 "PHP
-let g:tagbar_phpctags_bin='/usr/bin/phpctags'
+"let g:tagbar_phpctags_bin='/usr/bin/phpctags'
+"let g:tagbar_phpctags_memory_limit = '512M'
+let g:tagbar_type_php = {
+    \ 'ctagstype' : 'php',
+    \ 'kinds'     : [
+        \ 'i:interfaces',
+        \ 'c:classes',
+        \ 'd:constant definitions',
+        \ 'f:functions',
+        \ 'j:javascript functions:1'
+      \]
+  \ }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "VIM youcompleteme
- "add preview for preview scratchpad
+"add preview for preview scratchpad
 set completeopt=noinsert,menu
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_filetype_whitelist = {'*':1}
 let g:ycm_filetype_blacklist = {
-    \ 'tagbar' : 1,
-    \ 'markdown' : 1
-    \}
+\ 'tagbar' : 1,
+\ 'markdown' : 1
+\}
 
 " VIM VOom
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
@@ -356,7 +376,7 @@ Plugin 'vim-airline/vim-airline-themes'
 " [2015-10-11] add tmuxline for fancier tmuxline and vim statusline
 Plugin 'edkolev/tmuxline.vim'
 
-" [2017-09-09] new plugin for ansible
+" [2017-09-06] new plugin for ansible yaml syntax flavor
 Plugin 'pearofducks/ansible-vim'
 
 " [2015-04-19] add vim-ansible-yaml to suppot ansible yaml syntax
