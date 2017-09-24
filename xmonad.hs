@@ -5,6 +5,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageHelpers
+--import XMonad.Hooks.EwmhDesktops as EwmhDesktop --ambigous with fullscreenEventHook
 import XMonad.Util.Paste
 import XMonad.Util.NamedWindows
 import XMonad.Util.Run(spawnPipe, safeSpawn)
@@ -18,7 +19,6 @@ import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.ToggleLayouts
 import XMonad.StackSet as W
---import XMonad.Hooks.EwmhDesktops --ambigous with fullscreenEventHook
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import Data.Ratio ((%))
@@ -143,4 +143,4 @@ myModMask               = mod4Mask -- [super]
 myBorderWidth           = 1
 myNormalBorderColor     = "#e0e0e0"
 myFocusedBorderColor    = "#F92672"
-myWorkSpaces    = [ "1:www", "2:bash", "3:music", "4:mail", "5:firefox", "6:calc", "7:misc", "8:misc", "9:misc"]
+myWorkSpaces    = [ "1:<fn=1>\xf268</fn>", "2:<fn=1>\xf120</fn>", "3:<fn=1>\xf001</fn>", "4:<fn=1>\xf2b6</fn>", "5:<fn=1>\xf269</fn>", "6:calc", "7:misc", "8:misc", "9:misc"]
