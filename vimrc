@@ -86,8 +86,12 @@ com! UpdateDictonaries :call UpdateDictionaries()                       "call se
 com! FixSyntaxHighlighting :syntax sync fromstart
 com! FoldManual :set foldmethod=manual                  "enable manual folding with a simple command
 com! ToggleLineNumbers :set relativenumber!
-com! Bashrun    :!./%
+com! MakeExecuteable :call setfperm(expand('%:p'), "rwxrwxrw-")
+com! Bash :!./%
+com! AnsiblePlaybookCheck :!ansible-playbook % --check -i hosts
 
+"com! -nargs=1 Voc :silent !coproc voc <q-args>
+com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! ViewHtml :!w3m %
@@ -141,6 +145,14 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"YML
+let g:tagbar_type_yaml = {
+    \ 'ctagstype' : 'yaml',
+    \ 'kinds' : [
+        \ 't:tasks'
+    \ ],
+    \ 'sort' : 0
+\ }
 
 "LATEX
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
@@ -184,6 +196,8 @@ let g:tagbar_type_php = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"VIM youcompleteme
+"add preview for preview scratchpad
 "VIM youcompleteme
 "add preview for preview scratchpad
 set completeopt=noinsert,menu

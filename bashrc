@@ -23,14 +23,17 @@ source ~/dotfiles/bin/git-prompt.sh
 PS1='\[\033[0;32m\]\[\033[0m\033[1m\]\u\[\033[1;34m\]@\[\033[1;34m\]\h \w\[\033[0;31m\]$(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0m\] \$:\[\033[0m\] '
 
 export EDITOR="vim" 
+export JAVA_HOME=/usr/bin/java
+export LC_ALL=en_US.UTF-8
 
 PATH=$PATH:~/dotfiles/bin
 PATH=$PATH:~/bin #local bin for personal shell scripts
 
 export PATH
 
-#TERM='rxvt-unicode'
 #try to  set term for tmux:
+#TERM='rxvt-unicode'
+TERM='xterm-256color'
 TERM='screen-256color'
 COLORTERM='rxvt-unicode-256color'
 
