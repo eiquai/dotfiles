@@ -94,8 +94,9 @@ com! AnsiblePlaybookCheck :!ansible-playbook % --check -i hosts
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
-com! ViewHtml :!w3m %
-com! ReadHtml :%!w3m %
+com! W3m :!w3m %
+"com! ReadHtml :%!w3m %
+com! HtmlParse :silent e! %:r.txt | r !w3m #
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
