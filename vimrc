@@ -96,10 +96,19 @@ com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! W3m :!w3m %
 "com! ReadHtml :%!w3m %
-com! HtmlParse :silent e! %:r.txt | r !w3m #
+com! HtmlParse :call ParseHtml()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! ParseHtml()
+    :silent
+    :e! %:r "no filetype to signale that this is a scratch buffer
+    :silent r !w3m #
+    :setlocal buftype=nofile
+    :setlocal bufhidden=hide
+    :setlocal noswapfile
+endfunction
+
 function! WriteVocToDictionary(word)
     :silent :execute '!coproc voc 'a:word
     redraw!
