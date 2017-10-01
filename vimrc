@@ -107,6 +107,7 @@ function! ParseHtml()
     :setlocal buftype=nofile
     :setlocal bufhidden=hide
     :setlocal noswapfile
+    :set foldmethod=indent
 endfunction
 
 function! WriteVocToDictionary(word)
