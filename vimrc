@@ -88,10 +88,10 @@ com! FoldManual :set foldmethod=manual                  "enable manual folding w
 com! ToggleLineNumbers :set relativenumber!
 com! MakeExecuteable :call setfperm(expand('%:p'), "rwxrwxrw-")
 com! Bash :!./%
-com! AnsiblePlaybookCheck :!ansible-playbook % --check -i hosts
+com! AnsiblePlaybookCheck :!ansible-playbook % --check
+com! ProvideMysqlPw :call ProvideHashedMysqlPassword()
+com! -nargs=1 Pwgen :call GenPassword(<q-args>)
 
-"com! -nargs=1 Voc :silent !coproc voc <q-args>
-com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 "com! -nargs=1 Voc :silent !coproc voc <q-args>
 com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
 com! W3m :!w3m %
