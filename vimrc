@@ -110,6 +110,19 @@ function! ParseHtml()
     :set foldmethod=indent
 endfunction
 
+function! GenPassword(length)
+    :let l:pw= system('pwgen -Bsnc '.a:length.' 1')
+    :execute 'normal a ' . substitute(l:pw, '[\r\n]*$', '', '')
+endfunction
+
+function! ProvideHashedMysqlPassword()
+    :let l:pw = system('pwgen -Bsnc 10 1')
+    :let l:pw = substitute(l:pw, '[\r\n]*$', '', '')
+    :let l:cmd = "mysql -NBe \"select password('".l:pw."')\""
+    :let l:cmd = substitute(system(l:cmd), '[\r\n]*$', '', '')
+    :execute 'normal i "' .l:cmd . "\" #pw: " . l:pw
+endfunction
+
 function! WriteVocToDictionary(word)
     :silent :execute '!coproc voc 'a:word
     redraw!
