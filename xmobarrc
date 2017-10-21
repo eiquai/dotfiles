@@ -30,7 +30,7 @@ Config {
         [ Run Weather "EDDT" [  "--template", "<skyCondition> | <fc=#F92672><tempC></fc>°C | <fc=#F92672><rh></fc>% | <fc=#F92672><pressure></fc> hPa"] 36000
 
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork    [   "--template",   "<dev>: <tx>kB/s|<rx>kB/s"
+        , Run DynNetwork    [   "--template",   "<fn=1>\xf1eb</fn>: <tx>|<rx> kB/s"
                             ,   "--Low"     ,   "1000"        --units: kB/s
                             ,   "--High"    ,   "5000"        --units: kB/s
                             ,   "--high"    ,   "#00FFDD" 
@@ -58,7 +58,7 @@ Config {
                             ] 10
         
         -- memory usage monitor
-        , Run Memory        [   "--template",   "Mem: <usedratio>%"
+        , Run Memory        [   "--template",   "<fn=1>\xf1c0</fn>: <usedratio>%"
                             ,   "--Low"     ,   "20"        --units: %
                             ,   "--High"    ,   "90"        --units: %
                             ,   "--high"    ,   "#FF0000" 
