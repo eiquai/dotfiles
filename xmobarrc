@@ -2,7 +2,12 @@ Config {
 
         -- APPEARANCE
         --font = "xft:RobotoMono-Regular:size=9:antialiasing=false"
-        font = "xft:Roboto Mono for Powerline:size=9:antialiasing=true"
+        font = "xft:Roboto Mono for Powerline:size=8:antialiasing=true"
+        , additionalFonts = ["xft:FontAwesome:size=8"]
+        , textOffset = -1
+        , iconOffset = -1
+        , iconRoot = "."
+        , alpha = 1
         , position = TopW L 100
         --font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , bgColor = "#272822"
@@ -25,7 +30,7 @@ Config {
         [ Run Weather "EDDT" [  "--template", "<skyCondition> | <fc=#F92672><tempC></fc>°C | <fc=#F92672><rh></fc>% | <fc=#F92672><pressure></fc> hPa"] 36000
 
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork    [   "--template",   "<dev>: <tx>kB/s|<rx>kB/s"
+        , Run DynNetwork    [   "--template",   "<fn=1>\xf1eb</fn>: <tx>|<rx> kB/s"
                             ,   "--Low"     ,   "1000"        --units: kB/s
                             ,   "--High"    ,   "5000"        --units: kB/s
                             ,   "--high"    ,   "#00FFDD" 
@@ -34,7 +39,7 @@ Config {
                             ] 10
 
         -- cpu activity monitor
-        , Run MultiCpu      [   "--template",   "Cpu: <total0>%|<total1>%"
+        , Run MultiCpu      [   "--template",   "<fn=1>\xf2db</fn>:<total0>%|<total1>%"
                             ,   "--Low"     ,   "30"        --units: %
                             ,   "--High"    ,   "65"        --units: %
                             ,   "--high"    ,   "#FF0000" 
@@ -44,7 +49,7 @@ Config {
                             ] 10
 
         -- cpu core temperature monitor
-        , Run CoreTemp      [   "--template",   "Temp: <core0>°C | <core1>°C"
+        , Run CoreTemp      [   "--template",   "<fn=1>\xf2c7</fn>: <core0>°C | <core1>°C"
                             ,   "--Low"     ,   "70"        --units: °C
                             ,   "--High"    ,   "80"        --units: °C
                             ,   "--high"    ,   "#FF0000" 
@@ -53,7 +58,7 @@ Config {
                             ] 10
         
         -- memory usage monitor
-        , Run Memory        [   "--template",   "Mem: <usedratio>%"
+        , Run Memory        [   "--template",   "<fn=1>\xf1c0</fn>: <usedratio>%"
                             ,   "--Low"     ,   "20"        --units: %
                             ,   "--High"    ,   "90"        --units: %
                             ,   "--high"    ,   "#FF0000" 
@@ -65,7 +70,7 @@ Config {
         --, Run Swap          [] 10
 
         -- battery monitor
-        , Run Battery       [   "--template",   "Batt: <acstatus>"
+        , Run Battery       [   "--template",   "<fn=1>\xf240</fn>: <acstatus>"
                             ,   "--Low"     ,   "20"        --units: %
                             ,   "--High"    ,   "80"        --units: %
                             ,   "--high"    ,   "#66aa11" 
@@ -83,7 +88,7 @@ Config {
 
         -- time and date indicator
         --, Run Date "<fc=#0000FF>%a %b %_d %Y %H:%M:%S</fc>" "date" 10
-        , Run Date "<fc=#66aa11>%F (%a) %T</fc>" "date" 10
+        , Run Date "<fc=#66aa11><fn=1>\xf073</fn> %F (%a) %T</fc>" "date" 10
 
         -- keyboard layout indicator
         , Run Kbd           [   ("de",  "<fc=#3579a8>DE </fc>")
@@ -91,13 +96,12 @@ Config {
                             ,   ("fr",  "<fc=#3579a8>FR </fc>")
                             ,   ("es",  "<fc=#3579a8>ES </fc>")
                             ]
-        , Run StdinReader  --["--minwidth=50"]
-
-        , Run Volume "default" "Master" [ "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
+        , Run StdinReader
+        , Run Volume "default" "Master" [ "--template",  "<fn=1>\xf028</fn> <volume>% <status>" , "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
 
         ]
         -- LAYOUT
         , sepChar   = "%"   -- delineator between plugin and text
         , alignSep  = "}{"  -- separator between left-right alignment
-        , template = "%StdinReader% | %battery% | %multicpu% | %coretemp% | %memory% | <action=`gnome-control-center`>%dynnetwork% </action>}{ %default:Master%  <action=`gnome-weather`>%EDDT% </action>| <action=`gnome-calendar`>%date%</action> | <action=`~/dotfiles/bin/layout_switch`>%kbd%</action>"
+        , template = "%StdinReader% | %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %default:Master%  %EDDT% | <action=`gnome-calendar`>%date%</action> || <action=`~/dotfiles/bin/layout_switch`>%kbd%</action>"
         }
