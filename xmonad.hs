@@ -74,10 +74,10 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
 
     where
 
-    h = 0.6
-    w = 0.6
-    l = 0.2
-    t = 0.4
+    h = 0.8 --height
+    w = 0.8 --width
+    l = 0.1
+    t = 0.2 --padding from top??
 
 myStartupHook ::X ()
 myStartupHook = do
