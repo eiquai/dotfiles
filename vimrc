@@ -44,6 +44,9 @@ set diffopt+=iwhite "ignore white space
 set nostartofline   "don't reset the cursor to start of line
 set noshowmode      "only works when it is at the bottom of the .vimrc - i have now idea why :(
 
+set timeoutlen=800  "set mapping delays
+set ttimeoutlen=0   "set keycode delays
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           KEY MAPPINGS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,10 +83,51 @@ com! DotToPdf   :call DotToPdf()
 com! MarkdownRender :call MarkdownRender()                              "render markdown using pandoc
 com! MarkdownDisplay :call MarkdownDisplay()                            "open the according .pdf-file with zathura
 com! UpdateDictonaries :call UpdateDictionaries()                       "call self defined function to update all dictonaries based on .add files in dotfiles/vim/spell
+com! FixSyntaxHighlighting :syntax sync fromstart
+com! FoldManual :set foldmethod=manual                  "enable manual folding with a simple command
+com! ToggleLineNumbers :set relativenumber!
+com! MakeExecuteable :call setfperm(expand('%:p'), "rwxrwxrw-")
+com! Bash :!./%
+com! AnsiblePlaybookCheck :!ansible-playbook % --check
+com! ProvideMysqlPw :call ProvideHashedMysqlPassword()
+com! -nargs=1 Pwgen :call GenPassword(<q-args>)
 
+"com! -nargs=1 Voc :silent !coproc voc <q-args>
+com! -nargs=1 Voc :call WriteVocToDictionary(<q-args>)
+com! W3m :!w3m %
+"com! ReadHtml :%!w3m %
+com! HtmlParse :call ParseHtml()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SELF DEFINED FUNCTIONS                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! ParseHtml()
+    :silent
+    :e! %:r "no filetype to signale that this is a scratch buffer
+    :silent r !w3m #
+    :setlocal buftype=nofile
+    :setlocal bufhidden=hide
+    :setlocal noswapfile
+    :set foldmethod=indent
+endfunction
+
+function! GenPassword(length)
+    :let l:pw= system('pwgen -Bsnc '.a:length.' 1')
+    :execute 'normal a ' . substitute(l:pw, '[\r\n]*$', '', '')
+endfunction
+
+function! ProvideHashedMysqlPassword()
+    :let l:pw = system('pwgen -Bsnc 10 1')
+    :let l:pw = substitute(l:pw, '[\r\n]*$', '', '')
+    :let l:cmd = "mysql -NBe \"select password('".l:pw."')\""
+    :let l:cmd = substitute(system(l:cmd), '[\r\n]*$', '', '')
+    :execute 'normal i "' .l:cmd . "\" #pw: " . l:pw
+endfunction
+
+function! WriteVocToDictionary(word)
+    :silent :execute '!coproc voc 'a:word
+    redraw!
+endfunction
+
 function! DotDisplay()
     :silent :execute '!coproc dot -Tx11 %'
     redraw!
@@ -96,7 +140,7 @@ endfunction
 
 function! MarkdownRender()                                              "currently the process is not executed asynchronously
                                                                         "TODO: add arguments for table of content, formatting etc.
-    :silent :execute '!coproc pandoc --toc -f markdown -o %:p.pdf -i %'
+    :silent :execute '!coproc pandoc --toc -S -s -f markdown -o %:p.pdf %'
     redraw!
 endfunction
 
@@ -113,13 +157,32 @@ function! UpdateDictionaries()                                          "Update 
         endif
     endfor
 endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                AUTOCOMMANDS FOR ALL FILETYPES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set rnu
+    autocmd BufLeave,FocusLost,InsertEnter  * set nornu
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 SETTINGS FOR SPECIFIC FILETYPES                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"YML
+let g:tagbar_type_yaml = {
+    \ 'ctagstype' : 'yaml',
+    \ 'kinds' : [
+        \ 't:tasks'
+    \ ],
+    \ 'sort' : 0
+\ }
 
 "LATEX
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
+
+"JAVA
+let g:EclimCompletionMode = 'omnifunc'
 
 "--------------------------------------------------------------------
 
@@ -135,17 +198,40 @@ let g:tagbar_type_markdown = {
 au BufNewFile,BufRead,BufEnter      README      setlocal spell  spelllang=en_us "set spell check for README files
 " au BufNewFile,BufRead,BufEnter      *.md        setlocal spell  spelllang=de_de "set spellcheck with language de_de for markdown files currently deactivated as I assume that it would break settings for markdown beneath
 autocmd BufNewFile,BufRead,BufEnter *.md setlocal filetype=markdown textwidth=80 
-autocmd BufNewFile,BufRead,BufEnter *.md nnoremap <Leader>t :Voomtoggle<CR>
+autocmd BufNewFile,BufRead,BufEnter *.md nnoremap <silent><Leader>t :Voomtoggle<CR>
 "set Voomtoggle only for md files; TODO: set also for .tex file: set also for .tex files
-autocmd BufNewFile,BufReadPost *.md :Voom
-autocmd BufWritePost *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
+autocmd BufNewFile,BufReadPost *.md call voom#Init('markdown',1)    "use voom#Init function to generate Tree
+autocmd BufWritePost,BufEnter *.md call voom#BodyUpdateTree()     "update the tree after the file has been saved
 autocmd BufWritePost *.tex call voom#BodyUpdateTree()    "update the tree after the file has been saved
 
 "PHP
-let g:tagbar_phpctags_bin='/usr/bin/phpctags'
+"let g:tagbar_phpctags_bin='/usr/bin/phpctags'
+"let g:tagbar_phpctags_memory_limit = '512M'
+let g:tagbar_type_php = {
+    \ 'ctagstype' : 'php',
+    \ 'kinds'     : [
+        \ 'i:interfaces',
+        \ 'c:classes',
+        \ 'd:constant definitions',
+        \ 'f:functions',
+        \ 'j:javascript functions:1'
+      \]
+  \ }
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  SETTINGS FOR SPECIFIC PLUGINS                    "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"VIM youcompleteme
+"add preview for preview scratchpad
+"VIM youcompleteme
+"add preview for preview scratchpad
+set completeopt=noinsert,menu
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_filetype_whitelist = {'*':1}
+let g:ycm_filetype_blacklist = {
+\ 'tagbar' : 1,
+\ 'markdown' : 1
+\}
+
 " VIM VOom
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
@@ -177,6 +263,7 @@ colorscheme monokai "use monokai colorscheme; alternative: molokai
 " VIM-AIRLINE
 let g:airline_powerline_fonts = 1       "use fonts patched for powerline
 let g:airline_theme="dark"              "use dark theme
+let g:airline#extensions#tagbar#enabled = 0 "disable tagbar integration (performance issue)
 set laststatus=2
 
 " VIM LATEX SUITE
@@ -319,8 +406,11 @@ Plugin 'vim-airline/vim-airline-themes'
 " [2015-10-11] add tmuxline for fancier tmuxline and vim statusline
 Plugin 'edkolev/tmuxline.vim'
 
+" [2017-09-06] new plugin for ansible yaml syntax flavor
+Plugin 'pearofducks/ansible-vim'
+
 " [2015-04-19] add vim-ansible-yaml to suppot ansible yaml syntax
-Plugin 'chase/vim-ansible-yaml'
+"Plugin 'chase/vim-ansible-yaml'
 
 " [2015-04-18] nerdtree fileexplorer
 Plugin 'scrooloose/nerdtree'
