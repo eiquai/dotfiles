@@ -344,6 +344,9 @@ Plugin 'tpope/vim-fugitive'
 " plug-in makes editing brackets and ticks comfortable
 Plugin 'tpope/vim-surround'
 
+" [2017-11-17] Icons via vim-devicons
+Plugin 'ryanoasis/vim-devicons'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
