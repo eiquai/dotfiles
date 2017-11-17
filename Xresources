@@ -88,10 +88,14 @@ Xft.autohint:       true
 
 !New to make vim-airline look good :)
 !URxvt*font: xft:Droid Sans Mono for Powerline-11
-URxvt*font:             xft:Roboto Mono for Powerline-13
-URxvt*boldFont:         xft:RobotoMono-Bold-13
-URxvt*italicFont:       xft:RobotoMono-Italic-13
-URxvt*bolditalicFont:   xft:RobotoMono-BoldItalic-13
+!URxvt*font:             xft:Roboto Mono for Powerline-13
+!URxvt*boldFont:         xft:RobotoMono-Bold-13
+!URxvt*italicFont:       xft:RobotoMono-Italic-13
+!URxvt*bolditalicFont:   xft:RobotoMono-BoldItalic-13
+
+!For file icons via 'https://github.com/ryanoasis/vim-devicons' we set a fontfamily rather than specific fonts:
+!And we have to install Nerd fonts first!
+URxvt*font:             xft:RobotoMono Nerd Font-11
 
 !Font looks fine, so no font tweaking need for now
 !URxvt.letterSpace: -1
@@ -105,8 +109,3 @@ URxvt*.termName: rxvt-unicode-256color
 ! use visual bell instead of beep:
 URxvt*urgentOnBell: false
 URxvt*visualBell: true
-
-!settings for notify-osd
-!apparently not working :(
-!URxvt*urgentOnBell: true
-!URxvt*visualBell: false
