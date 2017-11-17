@@ -10,6 +10,7 @@
 alias tor='~/tor-browser_en-US/start-tor-browser --detach'
 alias bopdf='~/Dropbox/BerlinOnline/4_other/bo_pdf/bopdf.sh'
 alias mychromium='setsid /usr/bin/chromium >& /dev/null &'
+alias npm-exec='PATH=$(npm bin):$PATH'
 
 # make ls use colors automatically
 alias ls='ls --color=auto'
