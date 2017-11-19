@@ -60,7 +60,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 myManageHook = floatHook <+> fullscreenManageHook <+> manageScratchPad
 
 floatHook = composeAll
-    [ className =? "gimp"   --> doFloat
+    [ className =? "Gimp-2.8"   --> doFloat
     , resource =? "synapse" --> doIgnore
     , resource =? "arandr" --> doFloat
     , resource =? "keepassx2" --> doFloat
