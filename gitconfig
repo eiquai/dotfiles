@@ -23,3 +23,4 @@
     viewbranches = branch -avv
     rmbranch    = branch -D
     checkoutbranch = "!sh -c \"git checkout -b $1 --track origin/$1\""
+    setupremote = "!sh -c \"git remote add origin git@github.com:thyme-87/$1"\"
