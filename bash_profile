@@ -12,7 +12,8 @@ export EDITOR="$VISUAL"
 #NOTE that this will not affect root!
 
 PATH=$PATH:~/dotfiles/bin
-
+#PATH=$PATH:~/dotfiles/bin
+#PATH=$PATH:~/bin #local bin for personal shell scripts
 
 # make sure that .bashrc is also executed
 source  ~/.bashrc
