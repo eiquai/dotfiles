@@ -95,7 +95,7 @@ Xft.autohint:       true
 
 !For file icons via 'https://github.com/ryanoasis/vim-devicons' we set a fontfamily rather than specific fonts:
 !And we have to install Nerd fonts first!
-URxvt*font:             xft:RobotoMono Nerd Font-11
+URxvt*font:             xft:RobotoMono Nerd Font-13
 
 !Font looks fine, so no font tweaking need for now
 !URxvt.letterSpace: -1
