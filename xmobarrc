@@ -97,7 +97,9 @@ Config {
                             ,   ("es",  "<fc=#3579a8>ES </fc>")
                             ]
         , Run StdinReader
-        , Run Volume "default" "Master" [ "--template",  "<fn=1>\xf028</fn> <volume>% <status>" , "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
+        --TODO here we have the issue with the config!
+        --, Run Volume "default" "Master" [ "--template",  "<fn=1>\xf028</fn> <volume>% <status>" , "--", "-O", "<fc=#66aa11>[on]</fc>"] 10
+        --END TODO
 
         ]
         -- LAYOUT
