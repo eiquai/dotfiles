@@ -2,8 +2,8 @@ Config {
 
         -- APPEARANCE
         --font = "xft:RobotoMono-Regular:size=9:antialiasing=false"
-        font = "xft:Roboto Mono for Powerline:size=8:antialiasing=true"
-        , additionalFonts = ["xft:FontAwesome:size=8"]
+        font = "xft:Roboto Mono for Powerline:size=10:antialiasing=true"
+        , additionalFonts = ["xft:Font Awesome:size=10"]
         , textOffset = -1
         , iconOffset = -1
         , iconRoot = "."
